@@ -12,7 +12,7 @@ import javafx.scene.layout.Pane;
 
 public abstract class World extends Pane {
 	private AnimationTimer	timer;
-	private World world = this;
+//	private World world = this;
 	public World() {
 		timer = new AnimationTimer() {
 			
@@ -24,50 +24,50 @@ public abstract class World extends Pane {
 				}
 			}
 		};
-		setOnKeyPressed(new EventHandler<KeyEvent>() {
-
-			@Override
-			public void handle(KeyEvent event) {
-				System.out.println("ASDF");
-			}
-		});
-		sceneProperty().addListener(new ChangeListener<Scene>() {
-
-			@Override
-			public void changed(ObservableValue<? extends Scene> observable, Scene oldValue, Scene newValue) {
-				if (newValue == null) {
-					return;
-				}
-				newValue.addEventHandler(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
-
-					@Override
-					public void handle(KeyEvent event) {
-						System.out.println("KEY PRESSED");
-						world.getOnKeyPressed().handle(event);
-						for (Actor a : getObjects(Actor.class)) {
-							if (a.getOnKeyPressed() == null) {
-								return;
-							}
-							a.getOnKeyPressed().handle(event);
-						}
-					}
-				});
-				observable.getValue().addEventHandler(KeyEvent.KEY_RELEASED, new EventHandler<KeyEvent>() {
-
-					@Override
-					public void handle(KeyEvent event) {
-						System.out.println("KEY RELEASED");
-						for (Actor a : getObjects(Actor.class)) {
-							if (a.getOnKeyReleased() == null) {
-								return;
-							}
-							a.getOnKeyReleased().handle(event);
-						}
-					}
-					
-				});
-			}
-		});
+//		setOnKeyPressed(new EventHandler<KeyEvent>() {
+//
+//			@Override
+//			public void handle(KeyEvent event) {
+//				System.out.println("ASDF");
+//			}
+//		});
+//		sceneProperty().addListener(new ChangeListener<Scene>() {
+//
+//			@Override
+//			public void changed(ObservableValue<? extends Scene> observable, Scene oldValue, Scene newValue) {
+//				if (newValue == null) {
+//					return;
+//				}
+//				newValue.addEventHandler(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
+//
+//					@Override
+//					public void handle(KeyEvent event) {
+//						System.out.println("KEY PRESSED");
+//						world.getOnKeyPressed().handle(event);
+//						for (Actor a : getObjects(Actor.class)) {
+//							if (a.getOnKeyPressed() == null) {
+//								return;
+//							}
+//							a.getOnKeyPressed().handle(event);
+//						}
+//					}
+//				});
+//				observable.getValue().addEventHandler(KeyEvent.KEY_RELEASED, new EventHandler<KeyEvent>() {
+//
+//					@Override
+//					public void handle(KeyEvent event) {
+//						System.out.println("KEY RELEASED");
+//						for (Actor a : getObjects(Actor.class)) {
+//							if (a.getOnKeyReleased() == null) {
+//								return;
+//							}
+//							a.getOnKeyReleased().handle(event);
+//						}
+//					}
+//					
+//				});
+//			}
+//		});
 	}
 	public abstract void act (long now);
 	public void start() {
