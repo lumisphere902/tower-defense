@@ -54,4 +54,8 @@ public abstract class Actor extends ImageView {
 		}
 		return false;
 	}
+	
+	public boolean isInGrid (int x, int y) {
+		return true;
+	}
 }
