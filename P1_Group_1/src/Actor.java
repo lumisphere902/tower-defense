@@ -14,8 +14,8 @@ public abstract class Actor extends ImageView {
 		this.setY(this.getY() + dy);
 	}
 
-	public World getWorld() {
-		return (World) getParent();
+	public GameWorld getWorld() {
+		return (GameWorld) getParent();
 	}
 
 	public double getHeight() {

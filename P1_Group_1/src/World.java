@@ -25,8 +25,10 @@ public abstract class World extends Pane {
 			public void handle(long now) {
 				long time = System.nanoTime();
 				act(time - lastTime);
-				for (Node a : getChildren()) {
-					((Actor) a).act(time - lastTime);
+				for (int i = 0; i < getChildren().size(); i++) {
+					Node a = getChildren().get(i);
+					((Actor) a).act(time-lastTime);
+					
 				}
 				lastTime = time;
 			}
