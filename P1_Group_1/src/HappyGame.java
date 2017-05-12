@@ -1,3 +1,4 @@
+
 //replace this
 
 import javafx.application.Application;
@@ -16,53 +17,17 @@ public class HappyGame extends Application {
 
 	@Override
 	public void start(Stage stage) throws Exception {
-		stage.setTitle("Happy Game");
+		stage.setTitle("Tower Defense Game");
 		stage.setResizable(false);
 		stage.sizeToScene();
 		StackPane root = new StackPane();
-		GravityWorld world = new GravityWorld(0.4);
+		GameWorld world = new GameWorld();
 		root.getChildren().add(world);
-		Scene scene = new Scene(root, 1000, 600);
+		Scene scene = new Scene(root, World.GRID_WIDTH * World.TILE_WIDTH, World.GRID_HEIGHT * World.TILE_HEIGHT);
 		stage.setScene(scene);
 		stage.show();
-		GravityActor mainCharacter = new GravityActor(GravityActor.TYPE_MAIN_CHARACTER, 2, world.getWidth() / 2 - 32,
-				world.getHeight() / 2 - 32);
-		mainCharacter.setOnKeyPressed(new EventHandler<KeyEvent>() {
-
-			@Override
-			public void handle(KeyEvent event) {
-				KeyCode code = event.getCode();
-				GravityActor character = (GravityActor) world.getMainCharacter();
-				if (code.equals(KeyCode.W)) {
-					character.jump();
-				}
-				if (code.equals(KeyCode.A)) {
-					character.setLeftIsDown(true);
-					
-				} else if (code.equals(KeyCode.D)) {
-					character.setRightIsDown(true);
-				}
-			}
-		});
-		mainCharacter.setOnKeyReleased(new EventHandler<KeyEvent>() {
-
-			@Override
-			public void handle(KeyEvent event) {
-				KeyCode code = event.getCode();
-				GravityActor character = ((GravityActor) world.getMainCharacter());
-				if (code.equals(KeyCode.A)) {
-					character.setLeftIsDown(false);
-					
-				} else if (code.equals(KeyCode.D)) {
-					character.setRightIsDown(false);
-				}
-			}
-			
-		});
-		world.add(mainCharacter);
-		world.setMainCharacter(mainCharacter);
-		StationaryActor platform1 = new StationaryActor(StationaryActor.TYPE_BRICK_PLATFORM, 400, 300);
-		world.add(platform1);
+		world.addTower(new BasicTower(0, 5, 5), 5, 5);
+		world.addTower(new BasicTower(0, 5, 5), 10, 10);
 		world.start();
 	}
 

@@ -11,17 +11,24 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 
 public abstract class World extends Pane {
-	private AnimationTimer	timer;
+	public static final int TILE_WIDTH = 50;
+	public static final int TILE_HEIGHT = 50;
+	public static final int GRID_WIDTH = 25;
+	public static final int GRID_HEIGHT = 25;
+	private long lastTime = System.nanoTime();
+	private AnimationTimer timer;
 //	private World world = this;
 	public World() {
 		timer = new AnimationTimer() {
 			
 			@Override
 			public void handle(long now) {
-				act(System.nanoTime());
+				long time = System.nanoTime();
+				act(time - lastTime);
 				for (Node a : getChildren()) {
-					((Actor) a).act(System.nanoTime());
+					((Actor) a).act(time - lastTime);
 				}
+				lastTime = time;
 			}
 		};
 //		setOnKeyPressed(new EventHandler<KeyEvent>() {

@@ -7,7 +7,7 @@ public abstract class Actor extends ImageView {
 	public Actor() {
 	}
 
-	public abstract void act(long now);
+	public abstract void act(long diff);
 
 	public void move(double dx, double dy) {
 		this.setX(this.getX() + dx);
