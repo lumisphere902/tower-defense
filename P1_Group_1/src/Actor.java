@@ -1,6 +1,6 @@
 import java.util.ArrayList;
-import java.util.List;
 
+import javafx.geometry.Point2D;
 import javafx.scene.image.ImageView;
 
 public abstract class Actor extends ImageView {
@@ -57,5 +57,9 @@ public abstract class Actor extends ImageView {
 	
 	public boolean isInGrid (int x, int y) {
 		return true;
+	}
+	
+	public double getDistance(Actor a ) {
+		return new Point2D(getX(), getY()).distance(new Point2D(a.getX(),a.getY()));
 	}
 }

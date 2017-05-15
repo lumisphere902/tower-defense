@@ -9,10 +9,22 @@ public abstract class Tower extends Actor {
 	}
 	public abstract void attack(Actor target);
 	public abstract void upgrade();
+	public abstract double getRange();
 	public void sell() {
 		
 	}
 	public int Id() {
 		return id;
+	}
+	private Enemy findTarget() {
+		double maxDist = 0;
+		Enemy max = null;
+		for (Enemy e : getWorld().getObjects(Enemy.class)) {
+			if (getDistance(e) < getRange() && e.getDistance() > maxDist) {
+				maxDist = e.getDistance();
+				max = e;
+			}
+		}
+		return max;
 	}
 }
