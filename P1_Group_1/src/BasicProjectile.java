@@ -10,8 +10,14 @@ public class BasicProjectile extends Projectile {
 
 	@Override
 	public void act(long diff) {
-		double xSpeed = (getTarget().getX() - super.getX());
-		double ySpeed = (getTarget().getY() - super.getY());
+		if (getTarget() == null) {
+			getWorld().remove(this);
+			return;
+		}
+		double xSpeed = (getTarget().getX() 
+				- super.getX());
+		double ySpeed = (getTarget().getY() 
+				- super.getY());
 		double speedFactor = getSpeed() / Math.sqrt(xSpeed * xSpeed + ySpeed * ySpeed);
 		super.move(xSpeed * speedFactor * diff/1000000000,
 				ySpeed * speedFactor * diff/1000000000);

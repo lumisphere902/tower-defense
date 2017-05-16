@@ -2,7 +2,7 @@ import javafx.scene.image.Image;
 
 public class BasicTower extends Tower {
 	private long timer;
-	private static final int range = 500;
+	private static final int range = 1000;
 	public BasicTower(int id, int x, int y) {
 		super(id, x, y);
 		Image image = new Image("file:basicTower.jpg", World.GRID_WIDTH, World.GRID_HEIGHT, false, false);
@@ -28,13 +28,10 @@ public class BasicTower extends Tower {
 	@Override
 	public void act(long diff) {
 //		System.out.println("Act!");
-		if (Id() == 1) {
-			move(-3,0);
-			return;
-		}
+//		System.out.println(getWorld());
 		timer += diff;
 		if (timer > 1000000000) {
-			attack(getWorld().getTower(20, 10));
+			attack(findTarget());
 			timer %= 1000000000;
 		}
 	}

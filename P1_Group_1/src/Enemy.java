@@ -1,24 +1,22 @@
 
 public abstract class Enemy extends Actor {
 	private int id;
-	private int type;
-	private int entrance; //Where it spawns, should be stored in world
 	private int distance;
 	
-	public Enemy(int id, int type, int entrance) {
+	public Enemy(int id) {
 		super();
 		this.id = id;
-		this.type = type;
-		this.entrance = entrance;
 	}
 	
-	public void attacked (int damage) {
-		
-	}
+	public abstract void attacked (int damage);
 
 	@Override
 	public void act(long now) {
 		distance++;
+		move(-10, 0);
+		if (getX() < 0) {
+			getWorld().remove(this);
+		}
 	}
 
 	public int getDistance() {

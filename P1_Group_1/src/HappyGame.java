@@ -27,7 +27,7 @@ public class HappyGame extends Application {
 		stage.setScene(scene);
 		stage.show();
 		world.addTower(new BasicTower(0, 5, 5), 5, 5);
-		world.addTower(new BasicTower(1, 20, 10), 20, 10);
+		world.spawnEnemy(new BasicEnemy(0), 0);
 		world.start();
 	}
 
