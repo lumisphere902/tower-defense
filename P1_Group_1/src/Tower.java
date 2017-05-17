@@ -16,7 +16,7 @@ public abstract class Tower extends Actor {
 	public int Id() {
 		return id;
 	}
-	private Enemy findTarget() {
+	Enemy findTarget() {
 		double maxDist = 0;
 		Enemy max = null;
 		for (Enemy e : getWorld().getObjects(Enemy.class)) {
