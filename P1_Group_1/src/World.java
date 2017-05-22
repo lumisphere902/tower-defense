@@ -11,10 +11,10 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 
 public abstract class World extends Pane {
-	public static final int TILE_WIDTH = 50;
-	public static final int TILE_HEIGHT = 50;
-	public static final int GRID_WIDTH = 25;
-	public static final int GRID_HEIGHT = 25;
+	public static final int TILE_WIDTH = 30;
+	public static final int TILE_HEIGHT = 30;
+	public static final int GRID_WIDTH = 20;
+	public static final int GRID_HEIGHT = 20;
 	private long lastTime = System.nanoTime();
 	private AnimationTimer timer;
 //	private World world = this;
