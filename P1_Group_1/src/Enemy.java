@@ -13,7 +13,7 @@ public abstract class Enemy extends Actor {
 	@Override
 	public void act(long now) {
 		distance++;
-		move(-10, 0);
+		move(-1, 0);
 		if (getX() < 0) {
 			getWorld().remove(this);
 		}

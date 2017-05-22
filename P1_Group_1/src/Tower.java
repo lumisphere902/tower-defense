@@ -7,7 +7,7 @@ public abstract class Tower extends Actor {
 		setX(x*World.TILE_WIDTH);
 		setY(y*World.TILE_HEIGHT);
 	}
-	public abstract void attack(Actor target);
+	public abstract void attack(Enemy target);
 	public abstract void upgrade();
 	public abstract double getRange();
 	public void sell() {

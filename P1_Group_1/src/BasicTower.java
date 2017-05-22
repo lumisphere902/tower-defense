@@ -11,7 +11,7 @@ public class BasicTower extends Tower {
 	}
 
 	@Override
-	public void attack(Actor target) {
+	public void attack(Enemy target) {
 		Projectile p = new BasicProjectile(0, getX(), getY(), target);
 //		System.out.println(getX());
 //		System.out.println(getY());
