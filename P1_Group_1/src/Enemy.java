@@ -3,12 +3,10 @@ public abstract class Enemy extends Actor {
 	private int id;
 	private int distance;
 	private Path path;
-	boolean right, horizontal;
 	
 	public Enemy(int id) {
 		super();
 		this.id = id;
-		horizontal = true; right = true; 
 		path = new BasicPath(this);
 	}
 	
@@ -34,5 +32,7 @@ public abstract class Enemy extends Actor {
 	public int getDistance() {
 		return distance;
 	}
+	
+	public int getID(){return id;}
 
 }

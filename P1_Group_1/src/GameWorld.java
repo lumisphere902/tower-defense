@@ -8,16 +8,17 @@ import javafx.scene.layout.VBox;
 
 public class GameWorld extends World {
 	private Tower[][] grid;
-	private static final int[][] spawnPositions = {{300,300}, {40,5}, {4,324}};
+	private static final int[][] spawnPositions = {{0,0}};
 	private int nextWave = 0;
 	private int[] toSpawn = new int[1];
 	private long[] timers = new long[1];
 	private HeadsUpDisplay hud;
 	private double money;
-	private int[] basePos = { 0, 300 };
+	private int[] basePos = {GRID_WIDTH*TILE_WIDTH - 150, GRID_HEIGHT*TILE_HEIGHT - 150 };
 	private Base base;
 	private boolean gameOver = false;
 	private boolean ending = false;
+	boolean[][] buildable;
 
 	public GameWorld() {
 		super();
@@ -26,8 +27,28 @@ public class GameWorld extends World {
 		newWave(nextWave);
 		base = new Base();
 		base.setX(basePos[0]);
-		base.setY(basePos[1]);
+		base.setY(basePos[1]); 
 		add(base);
+		
+		buildable = new boolean[GRID_HEIGHT][GRID_WIDTH];
+		for (int row=0; row<GRID_HEIGHT; row++){
+			for (int col=0; col<GRID_WIDTH; col++){
+				if (row==4||row==5||row==8||row==9||row==12||row==13){buildable[row][col] = false;} //horizontal paths 
+				else if ((col==0||col==1) && (row<6 || (row>=8&&row<14))){buildable[row][col] = false;} //vertical left side
+				else if ((col==18||col==19) && (row >=4 && row<10)){buildable[row][col] = false;} //vertical right side
+				else if (row>=12&&col>=14){buildable[row][col]=false;} // tower
+				else {buildable[row][col]=true;}
+			}
+		}
+		
+		for (boolean[] r : buildable){
+			for (boolean b : r){
+				if(b){System.out.print(b + "  ");}
+				else{System.out.print(b+" ");}
+				
+			}
+			System.out.println();
+		}
 	}
 	
 	@Override
@@ -70,7 +91,7 @@ public class GameWorld extends World {
 				// - 1][3 * i + 2] * (long) 1000000);
 				timers[i] %= (long) Constants.waves[nextWave - 1][3 * i + 2] * 1000000;
 				if (i == 0) {
-					spawnEnemy(new EnemyWithHealthBar(0), (int) (Math.random() * spawnPositions.length));
+					spawnEnemy(new BasicEnemy(0), (int) (Math.random() * spawnPositions.length));
 					toSpawn[0]--;
 				}
 			}
