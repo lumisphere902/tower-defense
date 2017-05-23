@@ -10,7 +10,7 @@ public class BasicTower extends Tower {
 		timer = 0;
 	}
 
-	@Override
+
 	public void attack(Enemy target) {
 		Projectile p = new BasicProjectile(0, getX(), getY(), target);
 //		System.out.println(getX());
@@ -41,5 +41,4 @@ public class BasicTower extends Tower {
 		// TODO Auto-generated method stub
 		return range;
 	}
-
 }

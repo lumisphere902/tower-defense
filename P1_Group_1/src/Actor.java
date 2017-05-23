@@ -25,6 +25,14 @@ public abstract class Actor extends ImageView {
 	public double getWidth() {
 		return this.getImage().getWidth();
 	}
+	
+	public double getCenterX() {
+		return super.getX() + getWidth()/2.0;
+	}
+	
+	public double getCenterY() {
+		return super.getY() + getHeight()/2.0;
+	}
 
 	public <A extends Actor> ArrayList<A> getIntersectingObjects(Class<A> cls) {
 		ArrayList<A> ans = new ArrayList<A>();
@@ -37,6 +45,7 @@ public abstract class Actor extends ImageView {
 		return ans;
 	}
 
+	@SuppressWarnings("unchecked")
 	public <A extends Actor> A getOneIntersectingObject(Class<A> cls) {
 		for (Actor a : getWorld().getObjects(cls)) {
 			if (isIntersecting(getX(), getY(), getWidth(), getHeight(), a.getX(), a.getY(), a.getHeight(),
@@ -47,7 +56,7 @@ public abstract class Actor extends ImageView {
 		return null;
 	}
 
-	private boolean isIntersecting(double x1, double y1, double w1, double h1, double x2, double y2, double h2,
+	boolean isIntersecting(double x1, double y1, double w1, double h1, double x2, double y2, double h2,
 			double w2) {
 		if (x1 + w1 >= x2 && x1 <= x2 + w2 && y1 + h1 > y2 && y1 <= y2 + h2) {
 			return true;

@@ -12,7 +12,7 @@ public class GameWorld extends World {
 	private int nextWave = 0;
 	private int[] toSpawn = new int[1];
 	private long[] timers = new long[1];
-	private BorderPane hud;
+	private HeadsUpDisplay hud;
 	private double money;
 	private int[] basePos = { 0, 300 };
 	private Base base;
@@ -70,7 +70,7 @@ public class GameWorld extends World {
 				// - 1][3 * i + 2] * (long) 1000000);
 				timers[i] %= (long) Constants.waves[nextWave - 1][3 * i + 2] * 1000000;
 				if (i == 0) {
-					spawnEnemy(new BasicEnemy(0), (int) (Math.random() * spawnPositions.length));
+					spawnEnemy(new EnemyWithHealthBar(0), (int) (Math.random() * spawnPositions.length));
 					toSpawn[0]--;
 				}
 			}
@@ -116,11 +116,11 @@ public class GameWorld extends World {
 		nextWave++;
 	}
 
-	public void setHud(BorderPane hud) {
+	public void setHud(HeadsUpDisplay hud) {
 		this.hud = hud;
 	}
 
-	public BorderPane getHud() {
+	public HeadsUpDisplay getHud() {
 		return hud;
 	}
 

@@ -2,6 +2,7 @@ import javafx.scene.image.Image;
 
 public class BasicEnemy extends Enemy {
 	private int health = 20;
+	
 	public BasicEnemy(int id) {
 		super(id);
 		Image image = new Image("file:basicEnemy.png", 50, 50, false, false);

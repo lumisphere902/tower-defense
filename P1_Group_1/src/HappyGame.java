@@ -28,28 +28,7 @@ public class HappyGame extends Application {
 		world.addTower(new BasicTower(0, 5, 5), 5, 5);
 		world.spawnEnemy(new BasicEnemy(0), 0);
 		world.setStyle("-fx-background-color: #FFFFFF");
-		BorderPane hud = new BorderPane();
-		hud.setStyle("-fx-background-color: #AAAAAA");
-		hud.setPrefHeight(100);
-		GridPane towers = new GridPane();
-		for (int i = 0; i < Constants.towerTypes.length; i++) {
-			TowerData td = Constants.towerTypes[i];
-			VBox tower = new VBox();
-//			System.out.println(td.getImage().getWidth());
-			ImageView img = new ImageView();
-			img.setImage(td.getImage());
-			img.setX(0);
-			img.setY(0);
-			Label label = new Label("" + td.getCost());
-			tower.getChildren().addAll(img, label);
-			towers.add(tower, i, 0);
-		}
-		VBox nums = new VBox();
-		Label moneyLabel = new Label("$0");
-		Label healthLabel = new Label("Health: 20");
-		nums.getChildren().addAll(moneyLabel, healthLabel);
-		hud.setLeft(towers);
-		hud.setRight(nums);
+		HeadsUpDisplay hud = new HeadsUpDisplay();
 		root.setTop(world);
 		root.setBottom(hud);
 		Scene scene = new Scene(root, World.GRID_WIDTH * World.TILE_WIDTH, World.GRID_HEIGHT * World.TILE_HEIGHT + 100);

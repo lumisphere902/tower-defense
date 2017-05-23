@@ -22,7 +22,7 @@ public class BasicProjectile extends Projectile {
 		super.move(xSpeed * speedFactor * diff / 1000000000, ySpeed * speedFactor * diff / 1000000000);
 		if (isIntersecting(getX(), getY(), getWidth(), getHeight(), getTarget().getX(), getTarget().getY(),
 				getTarget().getHeight(), getTarget().getWidth())) {
-			getTarget().attacked(damage);
+			((Enemy) getTarget()).attacked(damage);
 			getWorld().remove(this);
 		}
 	}
