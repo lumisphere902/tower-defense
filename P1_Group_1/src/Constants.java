@@ -8,7 +8,7 @@ public final class Constants {
 };
 	public static final TowerData[] towerTypes = {
 //		
-	new TowerData(50,"basicTower.jpg")
+	new TowerData(50,"basicTower.png")
 	};
 }
 class TowerData {

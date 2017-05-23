@@ -1,3 +1,10 @@
+import java.util.Timer;
+import java.util.TimerTask;
+
+import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 
 public class GameWorld extends World {
 	private Tower[][] grid;
@@ -5,14 +12,44 @@ public class GameWorld extends World {
 	private int nextWave = 0;
 	private int[] toSpawn = new int[1];
 	private long[] timers = new long[1];
+	private BorderPane hud;
+	private double money;
+	private int[] basePos = { 0, 300 };
+	private Base base;
+	private boolean gameOver = false;
+	private boolean ending = false;
 
 	public GameWorld() {
 		super();
 		grid = new Tower[GRID_WIDTH][GRID_HEIGHT];
+		money = 100;
+		newWave(nextWave);
+		base = new Base();
+		base.setX(basePos[0]);
+		base.setY(basePos[1]);
+		add(base);
 	}
 
 	@Override
 	public void act(long diff) {
+		if (ending) {
+			return;
+		}
+		if (gameOver) {
+			try {
+				new Alert(Alert.AlertType.NONE, "YOU HAVE DIED!").show();
+				new Timer().schedule(new TimerTask() {
+					@Override
+					public void run() {
+						System.exit(0);
+					}
+				}, 3000);
+				stop();
+				ending = true;
+				return;
+			} catch (Exception e) {
+			}
+		}
 		boolean toNextWave = true;
 		for (int i = 0; i < toSpawn.length; i++) {
 			if (toSpawn[i] != 0) {
@@ -28,8 +65,9 @@ public class GameWorld extends World {
 			timers[i] += diff;
 		}
 		for (int i = 0; i < timers.length; i++) {
-			if (timers[i] > Constants.waves[nextWave - 1][3 * i + 2] * (long) 1000000) {
-//				System.out.println(timers[i] + "," + Constants.waves[nextWave - 1][3 * i + 2] * (long) 1000000);
+			if (toSpawn[i] > 0 && timers[i] > Constants.waves[nextWave - 1][3 * i + 2] * (long) 1000000) {
+				// System.out.println(timers[i] + "," + Constants.waves[nextWave
+				// - 1][3 * i + 2] * (long) 1000000);
 				timers[i] %= (long) Constants.waves[nextWave - 1][3 * i + 2] * 1000000;
 				if (i == 0) {
 					spawnEnemy(new BasicEnemy(0), (int) (Math.random() * spawnPositions.length));
@@ -37,6 +75,8 @@ public class GameWorld extends World {
 				}
 			}
 		}
+		money += diff / 1000000000.0;
+		((Label) ((VBox) hud.getChildren().get(1)).getChildren().get(0)).setText("$" + (int) money);
 	}
 
 	public void addTower(Tower a, int x, int y) {
@@ -51,6 +91,10 @@ public class GameWorld extends World {
 
 	public Tower getTower(int x, int y) {
 		return grid[x][y];
+	}
+
+	public Base getBase() {
+		return base;
 	}
 
 	public void spawnEnemy(Enemy e, int spawnPosition) {
@@ -69,5 +113,17 @@ public class GameWorld extends World {
 			toSpawn[i] = (int) (Math.random() * (max - min + 1)) + min;
 		}
 		nextWave++;
+	}
+
+	public void setHud(BorderPane hud) {
+		this.hud = hud;
+	}
+
+	public BorderPane getHud() {
+		return hud;
+	}
+
+	public void gameOver() {
+		gameOver = true;
 	}
 }

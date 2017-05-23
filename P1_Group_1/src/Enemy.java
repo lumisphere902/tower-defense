@@ -17,7 +17,14 @@ public abstract class Enemy extends Actor {
 		if (getX() < 0) {
 			getWorld().remove(this);
 		}
+		Base base = getWorld().getBase();
+		if (isIntersecting(getX(), getY(), getWidth(), getHeight(), base.getX(), base.getY(), base.getHeight(), base.getWidth())) {
+			base.attacked(getDamage());
+			getWorld().remove(this);
+		}
 	}
+
+	public abstract int getDamage();
 
 	public int getDistance() {
 		return distance;
