@@ -1,14 +1,21 @@
 import java.util.Timer;
 import java.util.TimerTask;
 
+import javafx.event.EventHandler;
+import javafx.scene.Cursor;
+import javafx.scene.ImageCursor;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 
 public class GameWorld extends World {
 	private Tower[][] grid;
-	private static final int[][] spawnPositions = { { 300, 300 } };
+	private static final int[][] spawnPositions = { { 500, 300 } };
 	private int nextWave = 0;
 	private int[] toSpawn = new int[1];
 	private long[] timers = new long[1];
@@ -18,11 +25,53 @@ public class GameWorld extends World {
 	private Base base;
 	private boolean gameOver = false;
 	private boolean ending = false;
+	private int currTower = -1;
+	private boolean canBuild = false;
 
 	public GameWorld() {
 		super();
+		setOnMouseMoved(new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent event) {
+				if (currTower < 0) {
+					getScene().setCursor(Cursor.DEFAULT);
+					return;
+				}
+				int gridX = (int) (event.getX() / TILE_WIDTH);
+				int gridY = (int) (event.getY() / TILE_HEIGHT);
+				if (getTower(gridX, gridY) == null) {
+					getScene().setCursor(
+							new ImageCursor(new Image("file:" + Constants.towerTypes[currTower].getImage()), 25, 25));
+					canBuild = true;
+				} else {
+					getScene().setCursor(new ImageCursor(new Image("file:x.png"), 25, 25));
+					canBuild = false;
+				}
+			}
+		});
+		setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent event) {
+				if (currTower < 0 || !canBuild || money < Constants.towerTypes[currTower].getCost()) {
+					return;
+				}
+				int gridX = (int) (event.getX() / TILE_WIDTH);
+				int gridY = (int) (event.getY() / TILE_HEIGHT);
+				money -= Constants.towerTypes[currTower].getCost();
+				Tower tower;
+				if (false) {
+				} else {
+					tower = new BasicTower(0, gridX, gridY);
+				}
+				addTower(tower, gridX, gridY);
+				currTower = -1;
+				getScene().setCursor(Cursor.DEFAULT);
+			}
+		});
 		grid = new Tower[GRID_WIDTH][GRID_HEIGHT];
-		money = 100;
+		money = 48;
 		newWave(nextWave);
 		base = new Base();
 		base.setX(basePos[0]);
@@ -56,8 +105,20 @@ public class GameWorld extends World {
 				toNextWave = false;
 			}
 		}
+		money += diff / 1000000000.0;
+		((Label) ((VBox) hud.getChildren().get(1)).getChildren().get(0)).setText("$" + (int) money);
+		for (int i = 0; i < Constants.towerTypes.length; i++) {
+			TowerData td = Constants.towerTypes[i];
+			if (money < td.getCost()) {
+				((ImageView) ((VBox) ((GridPane) (hud.getChildren().get(0))).getChildren().get(i)).getChildren().get(0))
+						.setImage(new Image("file:BW" + td.getImage(), 50, 50, false, false));
+			} else {
+				((ImageView) ((VBox) ((GridPane) (hud.getChildren().get(0))).getChildren().get(i)).getChildren().get(0))
+						.setImage(new Image("file:" + td.getImage(), 50, 50, false, false));
+			}
+		}
 		if (toNextWave) {
-			System.out.println("WAVE DONE");
+			// System.out.println("WAVE DONE");
 			newWave(nextWave);
 			return;
 		}
@@ -75,8 +136,6 @@ public class GameWorld extends World {
 				}
 			}
 		}
-		money += diff / 1000000000.0;
-		((Label) ((VBox) hud.getChildren().get(1)).getChildren().get(0)).setText("$" + (int) money);
 	}
 
 	public void addTower(Tower a, int x, int y) {
@@ -125,5 +184,13 @@ public class GameWorld extends World {
 
 	public void gameOver() {
 		gameOver = true;
+	}
+
+	public void setCurrTower(int i) {
+		currTower = i;
+	}
+
+	public double getMoney() {
+		return money;
 	}
 }

@@ -7,18 +7,18 @@ public final class Constants {
 	}
 };
 	public static final TowerData[] towerTypes = {
-//		
-	new TowerData(50,"basicTower.png")
+		new TowerData(0,50,"basicTower.png")
 	};
 }
 class TowerData {
 	private int cost;
-	private Image image;
-	public TowerData(int cost, String image) {
+	private String image;
+	private int type;
+	public TowerData(int type, int cost, String image) {
 		super();
 		this.cost = cost;
-		this.image = new Image("file:" + image, 50, 50, false, false);
-		System.out.println(this.image.getWidth());
+		this.image = image;//new Image("file:" + image, 50, 50, false, false);
+		this.type = type;
 	}
 	public int getCost() {
 		return cost;
@@ -26,11 +26,17 @@ class TowerData {
 	public void setCost(int cost) {
 		this.cost = cost;
 	}
-	public Image getImage() {
+	public String getImage() {
 		return image;
 	}
-	public void setImage(Image image) {
+	public void setImage(String image) {
 		this.image = image;
+	}
+	public int getType() {
+		return type;
+	}
+	public void setType(int type) {
+		this.type = type;
 	}
 	
 }
