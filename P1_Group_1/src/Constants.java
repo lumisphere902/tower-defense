@@ -15,13 +15,13 @@ public final class Constants {
 }
 class TowerData {
 	private int cost;
-	private Image image;
+	private String image;
 	private int type;
 	
 	public TowerData(int type, int cost, String image) {
 		super();
 		this.cost = cost;
-		this.image = new Image("file:" + image, 25, 25, false, false);//MAY NEED TO BE 50*50?
+		this.image = image;//MAY NEED TO BE 50*50?
 		this.type = type;
 	}
 	public int getCost() {
@@ -30,10 +30,10 @@ class TowerData {
 	public void setCost(int cost) {
 		this.cost = cost;
 	}
-	public Image getImage() {
+	public String getImage() {
 		return image;
 	}
-	public void setImage(Image image) {
+	public void setImage(String image) {
 		this.image = image;
 	}
 	public int getType() {

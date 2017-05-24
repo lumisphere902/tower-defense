@@ -8,8 +8,6 @@ public abstract class Enemy extends Actor {
 	private int id;
 	private int distance;
 	private Path path;
-	private Path path;
-	private Path path;
 
 	public Enemy(int id) {
 		super();

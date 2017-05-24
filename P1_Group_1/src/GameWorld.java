@@ -27,20 +27,38 @@ public class GameWorld extends World {
 	private boolean gameOver = false;
 	private boolean ending = false;
 	boolean[][] buildable;
-
 	private int currTower = -1;
 	private boolean canBuild = false;
-	private boolean[][] buildableTerrain = new boolean[GRID_WIDTH][GRID_HEIGHT];
 	private boolean waiting = false;
 	private Image towerImg;
 	private Image xImg = new Image("file:x.png", 50, 50, false, false);
 
 	public GameWorld() {
 		super();
+		buildable = new boolean[GRID_WIDTH][GRID_HEIGHT];
+		for (int col = 0; col < GRID_WIDTH; col++) {
+			for (int row = 0; row < GRID_HEIGHT; row++) {
+				if (row == 4 || row == 5 || row == 8 || row == 9 || row == 12 || row == 13) {
+					buildable[col][row] = false;
+				} // horizontal paths
+				else if ((col == 0 || col == 1) && (row < 6 || (row >= 8 && row < 14))) {
+					buildable[col][row] = false;
+				} // vertical left side
+				else if ((col == 18 || col == 19) && (row >= 4 && row < 10)) {
+					buildable[col][row] = false;
+				} // vertical right side
+				else if (row >= 12 && col >= 14) {
+					buildable[col][row] = false;
+				} // tower
+				else {
+					buildable[col][row] = true;
+				}
+			}
+		}
 		for (int i = 0; i < GRID_WIDTH; i++) {
 			for (int j = 0; j < GRID_HEIGHT; j++) {
 				Image img;
-				if (buildableTerrain[i][j]) {
+				if (buildable[i][j]) {
 					img = new Image("file:buildable.png", TILE_WIDTH, TILE_HEIGHT, false, false);
 
 				} else {
@@ -59,7 +77,7 @@ public class GameWorld extends World {
 						}
 						int gridX = (int) (event.getX() / TILE_WIDTH);
 						int gridY = (int) (event.getY() / TILE_HEIGHT);
-						if (getTower(gridX, gridY) == null && buildableTerrain[gridX][gridY]) {
+						if (getTower(gridX, gridY) == null && buildable[gridX][gridY]) {
 							getScene().setCursor(new ImageCursor(towerImg, 25, 25));
 							canBuild = true;
 						} else {
@@ -74,9 +92,6 @@ public class GameWorld extends World {
 		setOnMouseClicked(event -> {
 			if (currTower < 0 || !canBuild || money < Constants.towerTypes[currTower].getCost()) {
 				return;
-		setOnMouseClicked(event -> {
-			if (currTower < 0 || !canBuild || money < Constants.towerTypes[currTower].getCost()) {
-				return;
 			}
 			int gridX = (int) (event.getX() / TILE_WIDTH);
 			int gridY = (int) (event.getY() / TILE_HEIGHT);
@@ -88,158 +103,7 @@ public class GameWorld extends World {
 			getScene().setCursor(Cursor.DEFAULT);
 		});
 		grid = new Tower[GRID_WIDTH][GRID_HEIGHT];
-
-		money = 100;
-		newWave(nextWave);
-		base = new Base();
-		base.setX(basePos[0]);
-		base.setY(basePos[1]);
-		add(base);
-
-		buildable = new boolean[GRID_HEIGHT][GRID_WIDTH];
-		for (int row = 0; row < GRID_HEIGHT; row++) {
-			for (int col = 0; col < GRID_WIDTH; col++) {
-				if (row == 4 || row == 5 || row == 8 || row == 9 || row == 12 || row == 13) {
-					buildable[row][col] = false;
-				} // horizontal paths
-				else if ((col == 0 || col == 1) && (row < 6 || (row >= 8 && row < 14))) {
-					buildable[row][col] = false;
-				} // vertical left side
-				else if ((col == 18 || col == 19) && (row >= 4 && row < 10)) {
-					buildable[row][col] = false;
-				} // vertical right side
-				else if (row >= 12 && col >= 14) {
-					buildable[row][col] = false;
-				} // tower
-				else {
-					buildable[row][col] = true;
-				}
-			}
-		}
-
-		for (boolean[] r : buildable) {
-			for (boolean b : r) {
-				if (b) {
-					System.out.print(b + "  ");
-				} else {
-					System.out.print(b + " ");
-				}
-
-		setOnMouseClicked(event -> {
-			if (currTower < 0 || !canBuild || money < Constants.towerTypes[currTower].getCost()) {
-				return;
-			}
-			int gridX = (int) (event.getX() / TILE_WIDTH);
-			int gridY = (int) (event.getY() / TILE_HEIGHT);
-			money -= Constants.towerTypes[currTower].getCost();
-			Tower tower = new BasicTower(0, gridX, gridY);
-			
-			addTower(tower, gridX, gridY);
-			currTower = -1;
-			getScene().setCursor(Cursor.DEFAULT);
-		});
-		grid = new Tower[GRID_WIDTH][GRID_HEIGHT];
-
-		money = 100;
-		newWave(nextWave);
-		base = new Base();
-		base.setX(basePos[0]);
-		base.setY(basePos[1]);
-		add(base);
-
-		buildable = new boolean[GRID_HEIGHT][GRID_WIDTH];
-		for (int row = 0; row < GRID_HEIGHT; row++) {
-			for (int col = 0; col < GRID_WIDTH; col++) {
-				if (row == 4 || row == 5 || row == 8 || row == 9 || row == 12 || row == 13) {
-					buildable[row][col] = false;
-				} // horizontal paths
-				else if ((col == 0 || col == 1) && (row < 6 || (row >= 8 && row < 14))) {
-					buildable[row][col] = false;
-				} // vertical left side
-				else if ((col == 18 || col == 19) && (row >= 4 && row < 10)) {
-					buildable[row][col] = false;
-				} // vertical right side
-				else if (row >= 12 && col >= 14) {
-					buildable[row][col] = false;
-				} // tower
-				else {
-					buildable[row][col] = true;
-				}
-			}
-		}
-
-		for (boolean[] r : buildable) {
-			for (boolean b : r) {
-				if (b) {
-					System.out.print(b + "  ");
-				} else {
-					System.out.print(b + " ");
-				}
-
-		setOnMouseClicked(event -> {
-			if (currTower < 0 || !canBuild || money < Constants.towerTypes[currTower].getCost()) {
-				return;
-			}
-			int gridX = (int) (event.getX() / TILE_WIDTH);
-			int gridY = (int) (event.getY() / TILE_HEIGHT);
-			money -= Constants.towerTypes[currTower].getCost();
-			Tower tower = new BasicTower(0, gridX, gridY);
-			
-			addTower(tower, gridX, gridY);
-			currTower = -1;
-			getScene().setCursor(Cursor.DEFAULT);
-		});
-		grid = new Tower[GRID_WIDTH][GRID_HEIGHT];
-
-		money = 100;
-		newWave(nextWave);
-		base = new Base();
-		base.setX(basePos[0]);
-		base.setY(basePos[1]);
-		add(base);
-
-		buildable = new boolean[GRID_HEIGHT][GRID_WIDTH];
-		for (int row = 0; row < GRID_HEIGHT; row++) {
-			for (int col = 0; col < GRID_WIDTH; col++) {
-				if (row == 4 || row == 5 || row == 8 || row == 9 || row == 12 || row == 13) {
-					buildable[row][col] = false;
-				} // horizontal paths
-				else if ((col == 0 || col == 1) && (row < 6 || (row >= 8 && row < 14))) {
-					buildable[row][col] = false;
-				} // vertical left side
-				else if ((col == 18 || col == 19) && (row >= 4 && row < 10)) {
-					buildable[row][col] = false;
-				} // vertical right side
-				else if (row >= 12 && col >= 14) {
-					buildable[row][col] = false;
-				} // tower
-				else {
-					buildable[row][col] = true;
-				}
-			}
-		}
-
-		for (boolean[] r : buildable) {
-			for (boolean b : r) {
-				if (b) {
-					System.out.print(b + "  ");
-				} else {
-					System.out.print(b + " ");
-				}
-
-			}
-			int gridX = (int) (event.getX() / TILE_WIDTH);
-			int gridY = (int) (event.getY() / TILE_HEIGHT);
-			money -= Constants.towerTypes[currTower].getCost();
-			Tower tower = new BasicTower(0, gridX, gridY);
-			
-			addTower(tower, gridX, gridY);
-			currTower = -1;
-			getScene().setCursor(Cursor.DEFAULT);
-		});
-		grid = new Tower[GRID_WIDTH][GRID_HEIGHT];
-		
-		money = 48;
+		money = 50;
 		newWave(nextWave);
 		base = new Base();
 		base.setX(basePos[0]);
@@ -346,12 +210,16 @@ public class GameWorld extends World {
 		nextWave++;
 	}
 
-	public void setHud(BorderPane hud) {
+	public void setHud(HeadsUpDisplay hud) {
 		this.hud = hud;
 	}
 
 	public HeadsUpDisplay getHud() {
 		return hud;
+	}
+
+	public boolean[][] getBuildable() {
+		return buildable;
 	}
 
 	public void gameOver() {

@@ -1,4 +1,5 @@
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -16,7 +17,7 @@ public class HeadsUpDisplay extends BorderPane {
 			TowerData td = Constants.towerTypes[i];
 			VBox tower = new VBox();
 			ImageView img = new ImageView();
-			img.setImage(td.getImage());
+			img.setImage(new Image("file:"+td.getImage(),50,50,false,false));
 			img.setX(0);
 			img.setY(0);
 			Label label = new Label("" + td.getCost());
