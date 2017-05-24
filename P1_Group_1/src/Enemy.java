@@ -8,16 +8,12 @@ public abstract class Enemy extends Actor {
 	private int id;
 	private int distance;
 	private Path path;
-
+	
 	public Enemy(int id) {
 		super();
 		this.id = id;
 		path = new BasicPath(this);
 	}
-	
-	/**
-	 * Move along a path
-	 */
 	public void attacked(int damage) {
 		takeDamage(damage);
 		System.out.println("I was hit!");
@@ -30,7 +26,6 @@ public abstract class Enemy extends Actor {
 			getWorld().add(bob);
 			System.out.println("file:death" + Constants.enemyTypes[id].getImage());
 			String musicFile = "coins.wav";
-
 			Media sound = new Media(new File(musicFile).toURI().toString());
 			MediaPlayer mediaPlayer = new MediaPlayer(sound);
 			mediaPlayer.play();
@@ -48,8 +43,7 @@ public abstract class Enemy extends Actor {
 		path.nextMove();
 		
 		Base base = getWorld().getBase();
-		if (isIntersecting(getX(), getY(), getWidth(), getHeight(), base.getX(), base.getY(), base.getHeight(),
-				base.getWidth())) {
+		if (isIntersecting(getX(), getY(), getWidth(), getHeight(), base.getX(), base.getY(), base.getHeight(), base.getWidth())) {
 			base.attacked(getDamage());
 		}
 		

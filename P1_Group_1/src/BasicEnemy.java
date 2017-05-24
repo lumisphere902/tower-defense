@@ -1,7 +1,9 @@
 import javafx.scene.image.Image;
 
 public class BasicEnemy extends Enemy {
-	private int health = 10;
+	
+	private int health = 200000;
+
 	public BasicEnemy() {
 		super(0);
 		Image image = new Image("file:basicEnemy.png", 50, 50, false, false);
@@ -23,12 +25,8 @@ public class BasicEnemy extends Enemy {
 	public void takeDamage(int damage) {
 		health -= damage;
 	}
-
-	@Override
-	public int getHealth() {
-		return health;
-	}
 	
 	public int getStartingHealth(){return 20;}
+	public int getHealth(){return health;}
 
 }
