@@ -1,3 +1,6 @@
+
+
+
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.scene.ImageCursor;
@@ -24,6 +27,7 @@ public class HappyGame extends Application {
 		BorderPane root = new BorderPane();
 		GameWorld world = new GameWorld();
 		Scene scene = new Scene(root, World.GRID_WIDTH * World.TILE_WIDTH, World.GRID_HEIGHT * World.TILE_HEIGHT + 100);
+
 		world.setPrefSize(World.GRID_WIDTH * World.TILE_WIDTH, World.GRID_HEIGHT * World.TILE_HEIGHT);
 		world.setStyle("-fx-background-color: #FFFFFF");
 		HeadsUpDisplay hud = new HeadsUpDisplay();
