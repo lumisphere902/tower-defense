@@ -51,6 +51,8 @@ public class GameWorld extends World {
 		}
 	}
 	
+	public boolean[][] getBuildable(){return buildable;}
+	
 	@Override
 	public void act(long diff) {
 		if (ending) {
@@ -148,4 +150,5 @@ public class GameWorld extends World {
 	public void gameOver() {
 		gameOver = true;
 	}
+	
 }
