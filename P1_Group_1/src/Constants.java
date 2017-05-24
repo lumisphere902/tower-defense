@@ -1,10 +1,8 @@
-import javafx.scene.image.Image;
-
 public final class Constants {
 	public static final int[][] waves = {
 //	 minBasic	maxBasic	timePerBasic
-	{3,			5,			3000
-	}
+	{3,			5,			3000},
+	{10,		15,			2000}
 };
 	public static final TowerData[] towerTypes = {
 		new TowerData(0,50,"basicTower.png")

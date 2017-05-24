@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -27,29 +28,49 @@ public class GameWorld extends World {
 	private boolean ending = false;
 	private int currTower = -1;
 	private boolean canBuild = false;
+	private boolean[][] buildableTerrain = new boolean[GRID_WIDTH][GRID_HEIGHT];
+	private boolean waiting = false;
+	private Image towerImg;
+	private Image xImg = new Image("file:x.png", 50, 50, false, false);
 
 	public GameWorld() {
 		super();
-		setOnMouseMoved(new EventHandler<MouseEvent>() {
+		for (int i = 0; i < GRID_WIDTH; i++) {
+			for (int j = 0; j < GRID_HEIGHT; j++) {
+				Image img;
+				if (buildableTerrain[i][j]) {
+					img = new Image("file:buildable.png", TILE_WIDTH, TILE_HEIGHT, false, false);
 
-			@Override
-			public void handle(MouseEvent event) {
-				if (currTower < 0) {
-					getScene().setCursor(Cursor.DEFAULT);
-					return;
-				}
-				int gridX = (int) (event.getX() / TILE_WIDTH);
-				int gridY = (int) (event.getY() / TILE_HEIGHT);
-				if (getTower(gridX, gridY) == null) {
-					getScene().setCursor(
-							new ImageCursor(new Image("file:" + Constants.towerTypes[currTower].getImage()), 25, 25));
-					canBuild = true;
 				} else {
-					getScene().setCursor(new ImageCursor(new Image("file:x.png"), 25, 25));
-					canBuild = false;
+					img = new Image("file:grass.png", TILE_WIDTH, TILE_HEIGHT, false, false);
 				}
+				Actor imgView = new Tile(img);
+				imgView.setX(i * TILE_WIDTH);
+				imgView.setY(j * TILE_HEIGHT);
+				imgView.setOnMouseEntered(new EventHandler<MouseEvent>() {
+
+					@Override
+					public void handle(MouseEvent event) {
+						if (currTower < 0) {
+							getScene().setCursor(Cursor.DEFAULT);
+							return;
+						}
+						int gridX = (int) (event.getX() / TILE_WIDTH);
+						int gridY = (int) (event.getY() / TILE_HEIGHT);
+						if (getTower(gridX, gridY) == null && buildableTerrain[gridX][gridY]) {
+							getScene().setCursor(
+									new ImageCursor(towerImg, 25, 25));
+							canBuild = true;
+						} else {
+							getScene()
+									.setCursor(new ImageCursor(xImg, 25, 25));
+							canBuild = false;
+						}
+					}
+				});
+				getChildren().add(imgView);
 			}
-		});
+		}
 		setOnMouseClicked(new EventHandler<MouseEvent>() {
 
 			@Override
@@ -117,8 +138,9 @@ public class GameWorld extends World {
 						.setImage(new Image("file:" + td.getImage(), 50, 50, false, false));
 			}
 		}
-		if (toNextWave) {
+		if (toNextWave && !waiting ) {
 			// System.out.println("WAVE DONE");
+			waiting = true;
 			newWave(nextWave);
 			return;
 		}
@@ -163,7 +185,9 @@ public class GameWorld extends World {
 	}
 
 	public void newWave(int waveNum) {
-		if (waveNum > 0) {
+		System.out.println("new wave");
+		waiting = false;
+		if (waveNum > 1) {
 			return;
 		}
 		for (int i = 0; i * 3 < Constants.waves.length; i++) {
@@ -171,6 +195,7 @@ public class GameWorld extends World {
 			int min = Constants.waves[waveNum][3 * i];
 			toSpawn[i] = (int) (Math.random() * (max - min + 1)) + min;
 		}
+		System.out.println(Arrays.toString(toSpawn));
 		nextWave++;
 	}
 
@@ -192,5 +217,9 @@ public class GameWorld extends World {
 
 	public double getMoney() {
 		return money;
+	}
+
+	public void setTowerImg(Image image) {
+		towerImg = image;
 	}
 }

@@ -52,6 +52,8 @@ public class HappyGame extends Application {
 					}
 					ImageView imgView = ((ImageView) tower.getChildren().get(0));
 					world.setCurrTower(num);
+					world.setTowerImg(new Image("file:" + Constants.towerTypes[num].getImage(), 50,
+							50, false, false));
 					scene.setCursor(new ImageCursor(new Image("file:" + Constants.towerTypes[num].getImage()),25,25));
 				}
 			});
