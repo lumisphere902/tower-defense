@@ -1,10 +1,10 @@
 
 public abstract class Projectile extends Actor {
 	private int id;
-	private Actor target;
+	private Enemy target;
 	private int speed;
 	
-	public Projectile(int id, double x, double y, int speed, Actor target) {
+	public Projectile(int id, double x, double y, int speed, Enemy target) {
 		super();
 		this.id = id;
 		setX(x);
@@ -13,7 +13,7 @@ public abstract class Projectile extends Actor {
 		this.speed = speed;
 	}
 
-	public Actor getTarget() {
+	public Enemy getTarget() {
 		return target;
 	}
 

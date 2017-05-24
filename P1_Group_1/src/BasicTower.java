@@ -1,3 +1,4 @@
+
 import javafx.scene.image.Image;
 
 public class BasicTower extends Tower {
@@ -5,12 +6,12 @@ public class BasicTower extends Tower {
 	private static final int range = 1000;
 	public BasicTower(int id, int x, int y) {
 		super(id, x, y);
-		Image image = new Image("file:basicTower.png", World.GRID_WIDTH, World.GRID_HEIGHT, false, false);
+		Image image = new Image("file:basicTower.png", World.TILE_WIDTH, World.TILE_HEIGHT, false, false);
 		super.setImage(image);
 		timer = 0;
 	}
 
-
+	@Override
 	public void attack(Enemy target) {
 		Projectile p = new BasicProjectile(0, getX(), getY(), target);
 //		System.out.println(getX());
@@ -41,4 +42,5 @@ public class BasicTower extends Tower {
 		// TODO Auto-generated method stub
 		return range;
 	}
+
 }
