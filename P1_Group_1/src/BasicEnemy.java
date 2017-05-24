@@ -2,25 +2,33 @@ import javafx.scene.image.Image;
 
 public class BasicEnemy extends Enemy {
 	private int health = 10;
-	public BasicEnemy(int id) {
-		super(id);
+	public BasicEnemy() {
+		super(0);
 		Image image = new Image("file:basicEnemy.png", 50, 50, false, false);
 		super.setImage(image);
-	}
-
-	@Override
-	public void attacked(int damage) {
-		health -= damage;
-		System.out.println("I was hit!");
-		if (health <= 0 && getWorld() != null) {
-			getWorld().remove(this);
-			System.out.println("I died!");
-		}
+	//	health = new HealthBar(this); 
 	}
 
 	@Override
 	public int getDamage() {
 		return 10;
 	}
+
+	@Override
+	public int getBounty() {
+		return 15;
+	}
+
+	@Override
+	public void takeDamage(int damage) {
+		health -= damage;
+	}
+
+	@Override
+	public int getHealth() {
+		return health;
+	}
+	
+	public int getStartingHealth(){return 20;}
 
 }

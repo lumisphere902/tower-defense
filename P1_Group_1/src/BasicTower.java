@@ -1,3 +1,4 @@
+
 import javafx.scene.image.Image;
 
 public class BasicTower extends Tower {
@@ -13,11 +14,7 @@ public class BasicTower extends Tower {
 	@Override
 	public void attack(Enemy target) {
 		Projectile p = new BasicProjectile(0, getX(), getY(), target);
-//		System.out.println(getX());
-//		System.out.println(getY());
 		getWorld().add(p);
-//		System.out.println(getWorld().getChildren());
-//		System.out.println("ADDED PROJECTILE");
 	}
 
 	@Override

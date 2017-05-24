@@ -26,9 +26,9 @@ public class HappyGame extends Application {
 		Scene scene = new Scene(root, World.GRID_WIDTH * World.TILE_WIDTH, World.GRID_HEIGHT * World.TILE_HEIGHT + 100);
 		world.setPrefSize(World.GRID_WIDTH * World.TILE_WIDTH, World.GRID_HEIGHT * World.TILE_HEIGHT);
 		world.addTower(new BasicTower(0, 5, 5), 5, 5);
-		world.spawnEnemy(new BasicEnemy(0), 0);
+		world.spawnEnemy(new BasicEnemy(), 0);
 		world.setStyle("-fx-background-color: #FFFFFF");
-		BorderPane hud = new BorderPane();
+		HeadsUpDisplay hud = new HeadsUpDisplay();
 		hud.setStyle("-fx-background-color: #AAAAAA");
 		hud.setPrefHeight(100);
 		GridPane towers = new GridPane();

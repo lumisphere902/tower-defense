@@ -1,3 +1,5 @@
+import javafx.scene.image.Image;
+
 public final class Constants {
 	public static final int[][] waves = {
 //	 minBasic	maxBasic	timePerBasic
@@ -7,15 +9,19 @@ public final class Constants {
 	public static final TowerData[] towerTypes = {
 		new TowerData(0,50,"basicTower.png")
 	};
+	public static final TowerData[] enemyTypes = {
+			new TowerData(0,0,"basicEnemy.png")
+	};
 }
 class TowerData {
 	private int cost;
-	private String image;
+	private Image image;
 	private int type;
+	
 	public TowerData(int type, int cost, String image) {
 		super();
 		this.cost = cost;
-		this.image = image;//new Image("file:" + image, 50, 50, false, false);
+		this.image = new Image("file:" + image, 25, 25, false, false);//MAY NEED TO BE 50*50?
 		this.type = type;
 	}
 	public int getCost() {
@@ -24,10 +30,10 @@ class TowerData {
 	public void setCost(int cost) {
 		this.cost = cost;
 	}
-	public String getImage() {
+	public Image getImage() {
 		return image;
 	}
-	public void setImage(String image) {
+	public void setImage(Image image) {
 		this.image = image;
 	}
 	public int getType() {
@@ -36,5 +42,4 @@ class TowerData {
 	public void setType(int type) {
 		this.type = type;
 	}
-	
 }
