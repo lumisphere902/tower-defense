@@ -56,35 +56,12 @@ public class GameWorld extends World {
 				}
 			}
 		}
-		for (int row = 0; row < GRID_HEIGHT; row++) {
-			for (int col = 0; col < GRID_WIDTH; col++) {
-				if (row == 4 || row == 5 || row == 8 || row == 9 || row == 12 || row == 13) {
-					buildableTerrain[row][col] = false;
-				} // horizontal paths
-				else if ((col == 0 || col == 1) && (row < 6 || (row >= 8 && row < 14))) {
-					buildableTerrain[row][col] = false;
-				} // vertical left side
-				else if ((col == 18 || col == 19) && (row >= 4 && row < 10)) {
-					buildableTerrain[row][col] = false;
-				} // vertical right side
-				else if (row >= 12 && col >= 14) {
-					buildableTerrain[row][col] = false;
-				} // tower
-				else {
-					buildableTerrain[row][col] = true;
-				}
-			}
-		}
 		/*
-		for (boolean[] r : buildableTerrain) {
-			for (boolean b : r) {
-					System.out.print(b + (b ?  "  " : " "));
-			}
-			System.out.println();
-		}
-		*/
-		for (int i = 0; i < GRID_HEIGHT; i++) {
-			for (int j = 0; j < GRID_WIDTH; j++) {
+		 * for (boolean[] r : buildableTerrain) { for (boolean b : r) {
+		 * System.out.print(b + (b ? "  " : " ")); } System.out.println(); }
+		 */
+		for (int j = 0; j < GRID_HEIGHT; j++) {
+			for (int i = 0; i < GRID_WIDTH; i++) {
 				Image img;
 				if (buildable[i][j]) {
 					img = new Image("file:buildable.png", TILE_WIDTH, TILE_HEIGHT, false, false);
@@ -92,9 +69,9 @@ public class GameWorld extends World {
 				} else {
 					img = new Image("file:grass.png", TILE_WIDTH, TILE_HEIGHT, false, false);
 				}
-				Actor imgView = new Tile(img);
-				imgView.setY(i * TILE_HEIGHT);
-				imgView.setX(j * TILE_WIDTH);
+				Tile imgView = new Tile(img);
+				imgView.setX(i * TILE_WIDTH);
+				imgView.setY(j * TILE_HEIGHT);
 				imgView.setOnMouseEntered(new EventHandler<MouseEvent>() {
 
 					@Override
@@ -125,21 +102,12 @@ public class GameWorld extends World {
 			int gridY = (int) (event.getY() / TILE_HEIGHT);
 			money -= Constants.towerTypes[currTower].getCost();
 			Tower tower = new BasicTower(0, gridX, gridY);
-			
+
 			addTower(tower, gridX, gridY);
 			currTower = -1;
 			getScene().setCursor(Cursor.DEFAULT);
 		});
 		grid = new Tower[GRID_WIDTH][GRID_HEIGHT];
-
-		money = 100;
-		newWave(nextWave);
-		base = new Base();
-		base.setX(basePos[0]);
-		base.setY(basePos[1]);
-		add(base);
-
-		
 		money = 50;
 		newWave(nextWave);
 		base = new Base();
@@ -149,7 +117,7 @@ public class GameWorld extends World {
 	}
 
 	public boolean[][] getBuildable() {
-		return buildableTerrain;
+		return buildable;
 	}
 
 	@Override
@@ -248,21 +216,18 @@ public class GameWorld extends World {
 	}
 
 	public void newWave(int waveNum) {
-
-		if (waveNum > 0) {
-			System.out.println("new wave");
-			waiting = false;
-			if (waveNum > 1) {
-				return;
-			}
-			for (int i = 0; i * 3 < Constants.waves.length; i++) {
-				int max = Constants.waves[waveNum][3 * i + 1];
-				int min = Constants.waves[waveNum][3 * i];
-				toSpawn[i] = (int) (Math.random() * (max - min + 1)) + min;
-			}
-			nextWave++;
-			System.out.println(Arrays.toString(toSpawn));
+		System.out.println("new wave");
+		waiting = false;
+		if (waveNum > 1) {
+			return;
 		}
+		for (int i = 0; i * 3 < Constants.waves.length; i++) {
+			int max = Constants.waves[waveNum][3 * i + 1];
+			int min = Constants.waves[waveNum][3 * i];
+			toSpawn[i] = (int) (Math.random() * (max - min + 1)) + min;
+		}
+		nextWave++;
+		System.out.println(Arrays.toString(toSpawn));
 	}
 
 	public void setHud(HeadsUpDisplay hud) {
@@ -271,10 +236,6 @@ public class GameWorld extends World {
 
 	public HeadsUpDisplay getHud() {
 		return hud;
-	}	
-		
-	public boolean[][] getBuildable() {
-		return buildable;
 	}
 
 	public void gameOver() {
@@ -292,6 +253,7 @@ public class GameWorld extends World {
 	public void setTowerImg(Image image) {
 		towerImg = image;
 	}
+
 	public void addMoney(double money) {
 		this.money += money;
 	}

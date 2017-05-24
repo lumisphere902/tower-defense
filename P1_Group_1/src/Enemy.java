@@ -13,11 +13,10 @@ public abstract class Enemy extends Actor {
 		super();
 		this.id = id;
 		path = new BasicPath(this);
-<<<<<<< HEAD
 	}
 	public void attacked(int damage) {
 		takeDamage(damage);
-		System.out.println("I was hit!");
+		System.out.println("I was hit!" + getHealth());
 		if (getHealth() <= 0 && getWorld() != null) {
 			getWorld().addMoney(getBounty());
 			Actor bob = new RagDoll();
@@ -33,15 +32,7 @@ public abstract class Enemy extends Actor {
 			getWorld().remove(this);
 			System.out.println("I died!");
 		}
-=======
->>>>>>> branch 'master' of https://lumisphere902@bitbucket.org/p1_group_1/p1_group_1_repo.git
 	}
-	
-<<<<<<< HEAD
-=======
-	public abstract void attacked (int damage);
-	
->>>>>>> branch 'master' of https://lumisphere902@bitbucket.org/p1_group_1/p1_group_1_repo.git
 	/**
 	 * Move along a path
 	 */
