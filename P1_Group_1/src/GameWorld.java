@@ -27,19 +27,45 @@ public class GameWorld extends World {
 	private Base base;
 	private boolean gameOver = false;
 	private boolean ending = false;
-	boolean[][] buildable;
 
 	private int currTower = -1;
 	private boolean canBuild = false;
-	private boolean[][] buildableTerrain = new boolean[GRID_WIDTH][GRID_HEIGHT];
+	private boolean[][] buildableTerrain = new boolean[GRID_HEIGHT][GRID_WIDTH];
 	private boolean waiting = false;
 	private Image towerImg;
 	private Image xImg = new Image("file:x.png", 50, 50, false, false);
 
 	public GameWorld() {
 		super();
-		for (int i = 0; i < GRID_WIDTH; i++) {
-			for (int j = 0; j < GRID_HEIGHT; j++) {
+		for (int row = 0; row < GRID_HEIGHT; row++) {
+			for (int col = 0; col < GRID_WIDTH; col++) {
+				if (row == 4 || row == 5 || row == 8 || row == 9 || row == 12 || row == 13) {
+					buildableTerrain[row][col] = false;
+				} // horizontal paths
+				else if ((col == 0 || col == 1) && (row < 6 || (row >= 8 && row < 14))) {
+					buildableTerrain[row][col] = false;
+				} // vertical left side
+				else if ((col == 18 || col == 19) && (row >= 4 && row < 10)) {
+					buildableTerrain[row][col] = false;
+				} // vertical right side
+				else if (row >= 12 && col >= 14) {
+					buildableTerrain[row][col] = false;
+				} // tower
+				else {
+					buildableTerrain[row][col] = true;
+				}
+			}
+		}
+		/*
+		for (boolean[] r : buildableTerrain) {
+			for (boolean b : r) {
+					System.out.print(b + (b ?  "  " : " "));
+			}
+			System.out.println();
+		}
+		*/
+		for (int i = 0; i < GRID_HEIGHT; i++) {
+			for (int j = 0; j < GRID_WIDTH; j++) {
 				Image img;
 				if (buildableTerrain[i][j]) {
 					img = new Image("file:buildable.png", TILE_WIDTH, TILE_HEIGHT, false, false);
@@ -48,8 +74,8 @@ public class GameWorld extends World {
 					img = new Image("file:grass.png", TILE_WIDTH, TILE_HEIGHT, false, false);
 				}
 				Actor imgView = new Tile(img);
-				imgView.setX(i * TILE_WIDTH);
-				imgView.setY(j * TILE_HEIGHT);
+				imgView.setY(i * TILE_HEIGHT);
+				imgView.setX(j * TILE_WIDTH);
 				imgView.setOnMouseEntered(new EventHandler<MouseEvent>() {
 
 					@Override
@@ -94,38 +120,7 @@ public class GameWorld extends World {
 		base.setY(basePos[1]);
 		add(base);
 
-		buildable = new boolean[GRID_HEIGHT][GRID_WIDTH];
-		for (int row = 0; row < GRID_HEIGHT; row++) {
-			for (int col = 0; col < GRID_WIDTH; col++) {
-				if (row == 4 || row == 5 || row == 8 || row == 9 || row == 12 || row == 13) {
-					buildable[row][col] = false;
-				} // horizontal paths
-				else if ((col == 0 || col == 1) && (row < 6 || (row >= 8 && row < 14))) {
-					buildable[row][col] = false;
-				} // vertical left side
-				else if ((col == 18 || col == 19) && (row >= 4 && row < 10)) {
-					buildable[row][col] = false;
-				} // vertical right side
-				else if (row >= 12 && col >= 14) {
-					buildable[row][col] = false;
-				} // tower
-				else {
-					buildable[row][col] = true;
-				}
-			}
-		}
-
-		for (boolean[] r : buildable) {
-			for (boolean b : r) {
-				if (b) {
-					System.out.print(b + "  ");
-				} else {
-					System.out.print(b + " ");
-				}
-
-			}
-			System.out.println();
-		}
+		
 		money = 48;
 		newWave(nextWave);
 		base = new Base();
@@ -135,7 +130,7 @@ public class GameWorld extends World {
 	}
 
 	public boolean[][] getBuildable() {
-		return buildable;
+		return buildableTerrain;
 	}
 
 	@Override
