@@ -24,7 +24,6 @@ public abstract class Enemy extends Actor {
 		if (isIntersecting(getX(), getY(), getWidth(), getHeight(), base.getX(), base.getY(), base.getHeight(), base.getWidth())) {
 			base.attacked(getDamage());
 		}
-		move(-1, 0);
 		
 	}
 
