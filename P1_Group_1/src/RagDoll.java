@@ -7,7 +7,7 @@ public class RagDoll extends Actor {
 	public RagDoll() {
 		super();
 		this.start = 0;
-		FadeTransition ft = new FadeTransition(Duration.millis(2500), this);
+		FadeTransition ft = new FadeTransition(Duration.millis(3000), this);
 		ft.setFromValue(1.0);
 		ft.setToValue(0);
 		ft.setCycleCount(4);
@@ -19,7 +19,7 @@ public class RagDoll extends Actor {
 	@Override
 	public void act(long diff) {
 		start += diff;
-		if (start / 1000000 >= 2500) {
+		if (start / 1000000 >= 2700) {
 			getWorld().remove(this);
 		}
 	}

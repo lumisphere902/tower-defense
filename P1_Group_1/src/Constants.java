@@ -1,15 +1,17 @@
 public final class Constants {
 	public static final int[][] waves = {
-//	 minBasic	maxBasic	timePerBasic
-	{3,			5,			3000},
-	{100,		105,			500}
+//	 minBasic	maxBasic	timePerBasic	minAngry	maxAngry	timePerAngry	minRegen	maxRegen	timePerRegen
+	{3,			5,			3000,			0,			0,			0,				0,			0,			0},
+	{100,		105,		500,			1,			1,			10000,			1,			1,			5000}
 };
 	public static final TowerData[] towerTypes = {
 		new TowerData(0,50,"basicTower.png"),
 		new TowerData(1, 100, "aoeTower.png")
 	};
 	public static final TowerData[] enemyTypes = {
-			new TowerData(0,0,"basicEnemy.png")
+			new TowerData(0,0,"basicEnemy.png"),
+			new TowerData(0,0,"angryEnemy.png"),
+			new TowerData(0,0,"regenEnemy.png")
 	};
 }
 class TowerData {
