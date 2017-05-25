@@ -13,7 +13,7 @@ public class BasicEnemy extends Enemy {
 
 	@Override
 	public int getDamage() {
-		return 10;
+		return 1;
 	}
 
 	@Override

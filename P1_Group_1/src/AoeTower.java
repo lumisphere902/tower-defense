@@ -2,6 +2,7 @@ import javafx.scene.image.Image;
 
 public class AoeTower extends Tower {
 	private long timer;
+	private static final int range = 500;
 
 	public AoeTower(int id, int x, int y) {
 		super(id, x, y);
@@ -25,13 +26,16 @@ public class AoeTower extends Tower {
 	@Override
 	public double getRange() {
 		// TODO Auto-generated method stub
-		return 0;
+		return range ;
 	}
 
 	@Override
 	public void act(long diff) {
-		// TODO Auto-generated method stub
-
+		timer += diff;
+		if (timer/1000000 > 1500) {
+			attack(findTarget());
+			timer %= 1000000000;
+		}
 	}
 
 }

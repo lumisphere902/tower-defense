@@ -3,7 +3,7 @@ import javafx.scene.image.Image;
 
 public class BasicTower extends Tower {
 	private long timer;
-	private static final int range = 1000;
+	private static final int range = 300;
 	public BasicTower(int id, int x, int y) {
 		super(id, x, y);
 		Image image = new Image("file:basicTower.png", World.TILE_WIDTH, World.TILE_HEIGHT, false, false);
@@ -19,7 +19,7 @@ public class BasicTower extends Tower {
 
 	@Override
 	public void upgrade() {
-		System.out.println("Upgrade!");
+//		System.out.println("Upgrade!");
 	}
 
 	@Override

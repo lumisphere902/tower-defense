@@ -11,7 +11,8 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.GridPane;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 
 public class GameWorld extends World {
@@ -21,7 +22,7 @@ public class GameWorld extends World {
 	private int nextWave = 0;
 	private int[] toSpawn = new int[1];
 	private long[] timers = new long[1];
-	private HeadsUpDisplay hud;
+	private BorderPane hud;
 	private double money;
 	private int[] basePos = { GRID_WIDTH * TILE_WIDTH - 150, GRID_HEIGHT * TILE_HEIGHT - 150 };
 	private Base base;
@@ -101,14 +102,18 @@ public class GameWorld extends World {
 			int gridX = (int) (event.getX() / TILE_WIDTH);
 			int gridY = (int) (event.getY() / TILE_HEIGHT);
 			money -= Constants.towerTypes[currTower].getCost();
-			Tower tower = new BasicTower(0, gridX, gridY);
-
+			Tower tower;
+			if (currTower == 1) {
+				tower = new AoeTower(0, gridX, gridY);
+			} else {
+				tower = new BasicTower(0, gridX, gridY);
+			}
 			addTower(tower, gridX, gridY);
 			currTower = -1;
 			getScene().setCursor(Cursor.DEFAULT);
 		});
 		grid = new Tower[GRID_WIDTH][GRID_HEIGHT];
-		money = 50;
+		money = 100;
 		newWave(nextWave);
 		base = new Base();
 		base.setX(basePos[0]);
@@ -155,10 +160,10 @@ public class GameWorld extends World {
 		for (int i = 0; i < Constants.towerTypes.length; i++) {
 			TowerData td = Constants.towerTypes[i];
 			if (money < td.getCost()) {
-				((ImageView) ((VBox) ((GridPane) (hud.getChildren().get(0))).getChildren().get(i)).getChildren().get(0))
+				((ImageView) ((VBox) ((FlowPane) (hud.getChildren().get(0))).getChildren().get(i)).getChildren().get(0))
 						.setImage(new Image("file:BW" + td.getImage(), 50, 50, false, false));
 			} else {
-				((ImageView) ((VBox) ((GridPane) (hud.getChildren().get(0))).getChildren().get(i)).getChildren().get(0))
+				((ImageView) ((VBox) ((FlowPane) (hud.getChildren().get(0))).getChildren().get(i)).getChildren().get(0))
 						.setImage(new Image("file:" + td.getImage(), 50, 50, false, false));
 			}
 		}
@@ -230,11 +235,11 @@ public class GameWorld extends World {
 		System.out.println(Arrays.toString(toSpawn));
 	}
 
-	public void setHud(HeadsUpDisplay hud) {
-		this.hud = hud;
+	public void setHud(BorderPane hud2) {
+		this.hud = hud2;
 	}
 
-	public HeadsUpDisplay getHud() {
+	public BorderPane getHud() {
 		return hud;
 	}
 

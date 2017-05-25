@@ -6,8 +6,8 @@ public class BasicProjectile extends Projectile {
 
 	public BasicProjectile(int id, double x, double y, Enemy target) {
 		super(id, x, y, 200, target);
-		Image image = new Image("file:basicProjectile.png", 10, 10, false, false);
-		super.setImage(image);
+		Image image = new Image("file:basicProjectile.png", 20, 20, false, false);
+		setImage(image);
 	}
 
 	@Override

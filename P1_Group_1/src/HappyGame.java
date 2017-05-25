@@ -10,7 +10,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -30,10 +30,10 @@ public class HappyGame extends Application {
 
 		world.setPrefSize(World.GRID_WIDTH * World.TILE_WIDTH, World.GRID_HEIGHT * World.TILE_HEIGHT);
 		world.setStyle("-fx-background-color: #FFFFFF");
-		HeadsUpDisplay hud = new HeadsUpDisplay();
+		BorderPane hud = new BorderPane();
 		hud.setStyle("-fx-background-color: #AAAAAA");
 		hud.setPrefHeight(100);
-		GridPane towers = new GridPane();
+		FlowPane towers = new FlowPane();
 		for (int i = 0; i < Constants.towerTypes.length; i++) {
 			TowerData td = Constants.towerTypes[i];
 			VBox tower = new VBox();
@@ -59,7 +59,7 @@ public class HappyGame extends Application {
 					scene.setCursor(new ImageCursor(new Image("file:" + Constants.towerTypes[num].getImage()),25,25));
 				}
 			});
-			towers.add(tower, i, 0);
+			towers.getChildren().add(tower);
 		}
 		VBox nums = new VBox();
 		Label moneyLabel = new Label("$0");
