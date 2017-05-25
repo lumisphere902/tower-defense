@@ -19,7 +19,7 @@ public class RagDoll extends Actor {
 	@Override
 	public void act(long diff) {
 		start += diff;
-		if (start / 1000000 >= 3000) {
+		if (start / 1000000 >= 2500) {
 			getWorld().remove(this);
 		}
 	}
