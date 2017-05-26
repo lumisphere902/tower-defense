@@ -4,7 +4,7 @@ public class RegenEnemy extends Enemy {
 	int health = 35;
 	
 	public RegenEnemy() {
-		super(0);
+		super(2);
 		setImage(new Image("file:arthur.png", 50, 50, false, false));
 	}
 

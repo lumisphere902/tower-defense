@@ -20,8 +20,8 @@ public class GameWorld extends World {
 	private Tower[][] grid;
 	private static final int[][] spawnPositions = { { 0, 0 } };
 	private int nextWave = 0;
-	private int[] toSpawn = new int[2];
-	private long[] timers = new long[2];
+	private int[] toSpawn = new int[Constants.enemyTypes.length];
+	private long[] timers = new long[Constants.enemyTypes.length];
 	private BorderPane hud;
 	private double money;
 	private int[] basePos = { GRID_WIDTH * TILE_WIDTH - 150, GRID_HEIGHT * TILE_HEIGHT - 150 };

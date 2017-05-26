@@ -11,7 +11,7 @@ public final class Constants {
 	};
 	public static final TowerData[] enemyTypes = {
 			new TowerData(0,0,"basicEnemy.png"),
-			new TowerData(0,0,"angryEnemy.png"),
+			new TowerData(0,0,"cat.png"),
 			new TowerData(0,0,"arthur.png")
 	};
 }
