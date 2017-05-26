@@ -1,19 +1,17 @@
-import java.io.File;
-
 import javafx.scene.image.Image;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.AudioClip;
 
 public abstract class Enemy extends Actor {
 	private int id;
 	private int distance;
 	private Path path;
-	
+
 	public Enemy(int id) {
 		super();
 		this.id = id;
 		path = new BasicPath(this);
 	}
+
 	public void attacked(int damage) {
 		takeDamage(damage);
 		System.out.println("I was hit!" + getHealth());
@@ -24,15 +22,16 @@ public abstract class Enemy extends Actor {
 			bob.setX(getX());
 			bob.setY(getY());
 			getWorld().add(bob);
-			System.out.println("file:death" + Constants.enemyTypes[id].getImage());
+			// System.out.println("file:death" +
+			// Constants.enemyTypes[id].getImage());
 			String musicFile = "coins.wav";
-			Media sound = new Media(new File(musicFile).toURI().toString());
-			MediaPlayer mediaPlayer = new MediaPlayer(sound);
-			mediaPlayer.play();
+			AudioClip plonkSound = new AudioClip(HappyGame.class.getResource(musicFile).toExternalForm());
+			plonkSound.play();
 			getWorld().remove(this);
 			System.out.println("I died!");
 		}
 	}
+
 	/**
 	 * Move along a path
 	 */
@@ -40,12 +39,13 @@ public abstract class Enemy extends Actor {
 	public void act(long now) {
 		distance++;
 		path.nextMove();
-		
+
 		Base base = getWorld().getBase();
-		if (isIntersecting(getX(), getY(), getWidth(), getHeight(), base.getX(), base.getY(), base.getHeight(), base.getWidth())) {
+		if (isIntersecting(getX(), getY(), getWidth(), getHeight(), base.getX(), base.getY(), base.getHeight(),
+				base.getWidth())) {
 			base.attacked(getDamage());
 		}
-		
+
 	}
 
 	public abstract int getDamage();
@@ -59,7 +59,9 @@ public abstract class Enemy extends Actor {
 	public int getDistance() {
 		return distance;
 	}
-	
-	public int getID(){return id;}
+
+	public int getID() {
+		return id;
+	}
 
 }

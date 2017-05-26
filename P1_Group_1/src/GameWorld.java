@@ -20,8 +20,8 @@ public class GameWorld extends World {
 	private Tower[][] grid;
 	private static final int[][] spawnPositions = { { 0, 0 } };
 	private int nextWave = 0;
-	private int[] toSpawn = new int[2];
-	private long[] timers = new long[2];
+	private int[] toSpawn = new int[Constants.enemyTypes.length];
+	private long[] timers = new long[Constants.enemyTypes.length];
 	private BorderPane hud;
 	private double money;
 	private int[] basePos = { GRID_WIDTH * TILE_WIDTH - 150, GRID_HEIGHT * TILE_HEIGHT - 150 };
@@ -190,6 +190,7 @@ public class GameWorld extends World {
 					toSpawn[0]--;
 				} else {
 					spawnEnemy(new AngryEnemy(), (int) (Math.random() * spawnPositions.length));
+					toSpawn[1]--;
 				}
 			}
 		}
@@ -227,7 +228,7 @@ public class GameWorld extends World {
 		if (waveNum > 1) {
 			return;
 		}
-		for (int i = 0; i * 3 < Constants.waves.length; i++) {
+		for (int i = 0; i * 3 < Constants.waves[0].length; i++) {
 			int max = Constants.waves[waveNum][3 * i + 1];
 			int min = Constants.waves[waveNum][3 * i];
 			toSpawn[i] = (int) (Math.random() * (max - min + 1)) + min;

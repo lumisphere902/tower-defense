@@ -4,7 +4,7 @@ public class AngryEnemy extends Enemy{
 	int health;
 	
 	public AngryEnemy(){
-		super(0);
+		super(1);
 		super.setImage(new Image("file:cat.png", 50, 50, false, false));
 		health = 50;
 	}
