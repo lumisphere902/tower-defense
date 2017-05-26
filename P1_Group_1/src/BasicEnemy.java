@@ -6,9 +6,7 @@ public class BasicEnemy extends Enemy {
 
 	public BasicEnemy() {
 		super(0);
-		Image image = new Image("file:basicEnemy.png", 50, 50, false, false);
-		super.setImage(image);
-		// health = new HealthBar(this);
+		super.setImage(new Image("file:basicEnemy.png", 50, 50, false, false));
 	}
 
 	@Override

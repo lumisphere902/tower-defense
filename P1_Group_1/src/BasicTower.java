@@ -27,15 +27,14 @@ public class BasicTower extends Tower {
 //		System.out.println("Act!");
 //		System.out.println(getWorld());
 		timer += diff;
-		if (timer > 1000000000) {
+		if (timer > 1_000_000_000) {
 			attack(findTarget());
-			timer %= 1000000000;
+			timer %= 1_000_000_000;
 		}
 	}
 
 	@Override
 	public double getRange() {
-		// TODO Auto-generated method stub
 		return range;
 	}
 

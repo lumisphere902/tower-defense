@@ -20,8 +20,8 @@ public class GameWorld extends World {
 	private Tower[][] grid;
 	private static final int[][] spawnPositions = { { 0, 0 } };
 	private int nextWave = 0;
-	private int[] toSpawn = new int[1];
-	private long[] timers = new long[1];
+	private int[] toSpawn = new int[2];
+	private long[] timers = new long[2];
 	private BorderPane hud;
 	private double money;
 	private int[] basePos = { GRID_WIDTH * TILE_WIDTH - 150, GRID_HEIGHT * TILE_HEIGHT - 150 };
@@ -188,6 +188,8 @@ public class GameWorld extends World {
 				if (i == 0) {
 					spawnEnemy(new BasicEnemy(), (int) (Math.random() * spawnPositions.length));
 					toSpawn[0]--;
+				} else {
+					spawnEnemy(new AngryEnemy(), (int) (Math.random() * spawnPositions.length));
 				}
 			}
 		}
@@ -221,7 +223,6 @@ public class GameWorld extends World {
 	}
 
 	public void newWave(int waveNum) {
-		System.out.println("new wave");
 		waiting = false;
 		if (waveNum > 1) {
 			return;

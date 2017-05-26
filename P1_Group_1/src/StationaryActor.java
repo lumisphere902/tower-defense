@@ -10,8 +10,8 @@ public class StationaryActor extends Actor {
 		setY(y);
 	}
 	@Override
-	public void act(long now) {
-	}
+	public void act(long now) {}
+	
 	private void initialize(int type) {
 		String image = "";
 		int width = 0;

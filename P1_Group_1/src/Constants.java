@@ -1,8 +1,8 @@
 public final class Constants {
 	public static final int[][] waves = {
 //	 minBasic	maxBasic	timePerBasic	minAngry	maxAngry	timePerAngry	minRegen	maxRegen	timePerRegen
-	{3,			5,			3000,			0,			0,			0,				0,			0,			0},
-	{100,		105,		500,			1,			1,			10000,			1,			1,			5000}
+	{5,			5,			3000,			12,			15,			200,				0,			0,			0},
+	{20,		20,			500,			1,			1,			10000,			1,			1,			5000}
 };
 	public static final TowerData[] towerTypes = {
 		new TowerData(0,50,"basicTower.png"),
@@ -11,7 +11,7 @@ public final class Constants {
 	public static final TowerData[] enemyTypes = {
 			new TowerData(0,0,"basicEnemy.png"),
 			new TowerData(0,0,"angryEnemy.png"),
-			new TowerData(0,0,"regenEnemy.png")
+			new TowerData(0,0,"arthur.png")
 	};
 }
 class TowerData {
@@ -22,7 +22,7 @@ class TowerData {
 	public TowerData(int type, int cost, String image) {
 		super();
 		this.cost = cost;
-		this.image = image;//MAY NEED TO BE 50*50?
+		this.image = image;
 		this.type = type;
 	}
 	public int getCost() {
