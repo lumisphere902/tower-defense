@@ -8,7 +8,11 @@ public class AngryEnemy extends Enemy{
 		super.setImage(new Image("file:cat.png", 50, 50, false, false));
 		health = 50;
 	}
-
+	@Override
+	public void act(long now){
+		for (int i = 0; i<2; i++){super.act(now);}
+	}
+	
 	@Override
 	public int getDamage() {
 		return 2;

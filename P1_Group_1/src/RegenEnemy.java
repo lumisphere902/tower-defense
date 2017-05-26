@@ -25,7 +25,7 @@ public class RegenEnemy extends Enemy {
 
 	@Override
 	public void takeDamage(int damage) {
-		health -= damage + 1;
+		health -= damage;
 	}
 
 	@Override

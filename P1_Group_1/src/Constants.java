@@ -6,7 +6,8 @@ public final class Constants {
 };
 	public static final TowerData[] towerTypes = {
 		new TowerData(0,50,"basicTower.png"),
-		new TowerData(1, 100, "aoeTower.png")
+		new TowerData(1, 100, "aoeTower.png"),
+		new TowerData(2, 50, "teletubbies.png")
 	};
 	public static final TowerData[] enemyTypes = {
 			new TowerData(0,0,"basicEnemy.png"),

@@ -155,7 +155,7 @@ public class GameWorld extends World {
 		if (toNextWave) {
 			System.out.println("WAVE DONE");
 		}
-		money += diff / 1000000000.0;
+		money += diff / 1_000_000_000.0;
 		((Label) ((VBox) hud.getChildren().get(1)).getChildren().get(0)).setText("$" + (int) money);
 		for (int i = 0; i < Constants.towerTypes.length; i++) {
 			TowerData td = Constants.towerTypes[i];
@@ -190,6 +190,7 @@ public class GameWorld extends World {
 					toSpawn[0]--;
 				} else {
 					spawnEnemy(new AngryEnemy(), (int) (Math.random() * spawnPositions.length));
+					toSpawn[1]--;
 				}
 			}
 		}
@@ -227,7 +228,7 @@ public class GameWorld extends World {
 		if (waveNum > 1) {
 			return;
 		}
-		for (int i = 0; i * 3 < Constants.waves.length; i++) {
+		for (int i = 0; i * 3 < Constants.waves[0].length; i++) {
 			int max = Constants.waves[waveNum][3 * i + 1];
 			int min = Constants.waves[waveNum][3 * i];
 			toSpawn[i] = (int) (Math.random() * (max - min + 1)) + min;
