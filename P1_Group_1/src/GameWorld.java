@@ -68,7 +68,7 @@ public class GameWorld extends World {
 					img = new Image("file:buildable.png", TILE_WIDTH, TILE_HEIGHT, false, false);
 
 				} else {
-					img = new Image("file:grass.png", TILE_WIDTH, TILE_HEIGHT, false, false);
+					img = new Image("file:rainbowSquare.jpg", TILE_WIDTH, TILE_HEIGHT, false, false);
 				}
 				Tile imgView = new Tile(img);
 				imgView.setX(i * TILE_WIDTH);
@@ -103,10 +103,11 @@ public class GameWorld extends World {
 			int gridY = (int) (event.getY() / TILE_HEIGHT);
 			money -= Constants.towerTypes[currTower].getCost();
 			Tower tower;
-			if (currTower == 1) {
-				tower = new AoeTower(0, gridX, gridY);
-			} else {
-				tower = new BasicTower(0, gridX, gridY);
+			// THIS NEEDS TO BE CHANGED EACH TIME YOU ADD A NEW TOWER
+			if (currTower == 1) {tower = new AoeTower(0, gridX, gridY);} 
+			else  if (currTower == 2){tower = new TeleTower(0, gridX, gridY);} 
+			else if (currTower==3){tower = new TunakTower(0, gridX, gridY);}
+			else {tower = new BasicTower(0, gridX, gridY);
 			}
 			addTower(tower, gridX, gridY);
 			currTower = -1;
@@ -180,8 +181,8 @@ public class GameWorld extends World {
 			timers[i] += diff;
 		}
 
-		for (int i = 0; i < timers.length; i++) {
-			if (toSpawn[i] > 0 && timers[i] > Constants.waves[nextWave - 1][3 * i + 2] * (long) 1000000) {
+		for (int i = 0; i < timers.length; i++) {//NEED TO ADD CODE HERE FOR NEW ENEMIES BUILT
+			if (toSpawn[i] > 0 && timers[i] > Constants.waves[nextWave - 1][3 * i + 2] * (long) 1_000_000) {
 				// System.out.println(timers[i] + "," + Constants.waves[nextWave
 				// - 1][3 * i + 2] * (long) 1000000);
 				timers[i] %= (long) Constants.waves[nextWave - 1][3 * i + 2] * 1000000;
@@ -195,7 +196,7 @@ public class GameWorld extends World {
 			}
 		}
 
-		money += diff / 1000000000.0;
+		money += diff / 1_000_000_000.0;
 		((Label) ((VBox) hud.getChildren().get(1)).getChildren().get(0)).setText("$" + (int) money);
 	}
 

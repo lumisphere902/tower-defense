@@ -21,7 +21,6 @@ public abstract class Tower extends Actor {
 		Enemy max = null;
 		for (Enemy e : getWorld().getObjects(Enemy.class)) {
 			if (getDistance(e) < getRange() && e.getDistance() > maxDist) {
-//				System.out.println(getDistance(e));
 				maxDist = e.getDistance();
 				max = e;
 			}
