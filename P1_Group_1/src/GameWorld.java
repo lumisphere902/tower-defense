@@ -68,7 +68,7 @@ public class GameWorld extends World {
 					img = new Image("file:buildable.png", TILE_WIDTH, TILE_HEIGHT, false, false);
 
 				} else {
-					img = new Image("file:grass.png", TILE_WIDTH, TILE_HEIGHT, false, false);
+					img = new Image("file:rainbowSquare.jpg", TILE_WIDTH, TILE_HEIGHT, false, false);
 				}
 				Tile imgView = new Tile(img);
 				imgView.setX(i * TILE_WIDTH);
@@ -103,10 +103,11 @@ public class GameWorld extends World {
 			int gridY = (int) (event.getY() / TILE_HEIGHT);
 			money -= Constants.towerTypes[currTower].getCost();
 			Tower tower;
-			if (currTower == 1) {
-				tower = new AoeTower(0, gridX, gridY);
-			} else {
-				tower = new BasicTower(0, gridX, gridY);
+			// THIS NEEDS TO BE CHANGED EACH TIME YOU ADD A NEW TOWER
+			if (currTower == 1) {tower = new AoeTower(0, gridX, gridY);} 
+			else  if (currTower == 2){tower = new TeleTower(0, gridX, gridY);} 
+			else if (currTower==3){tower = new TunakTower(0, gridX, gridY);}
+			else {tower = new BasicTower(0, gridX, gridY);
 			}
 			addTower(tower, gridX, gridY);
 			currTower = -1;
@@ -155,7 +156,7 @@ public class GameWorld extends World {
 		if (toNextWave) {
 			System.out.println("WAVE DONE");
 		}
-		money += diff / 1_000_000_000.0;
+		money += diff / 1000000000.0;
 		((Label) ((VBox) hud.getChildren().get(1)).getChildren().get(0)).setText("$" + (int) money);
 		for (int i = 0; i < Constants.towerTypes.length; i++) {
 			TowerData td = Constants.towerTypes[i];
