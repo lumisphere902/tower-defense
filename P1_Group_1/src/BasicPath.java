@@ -6,11 +6,9 @@ public class BasicPath extends Path {
 		super(e);
 		horizontal = false;
 		right = false;
-		// direction = Math.random()*Math.PI*2;
 	}
-
+	
 	public void nextMove() {
-//		System.out.println(e.getY());
 		if (e.getX() < 0) {
 			horizontal = false;
 			e.move(1, 1);

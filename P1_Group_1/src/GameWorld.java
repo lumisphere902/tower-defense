@@ -181,8 +181,8 @@ public class GameWorld extends World {
 			timers[i] += diff;
 		}
 
-		for (int i = 0; i < timers.length; i++) {
-			if (toSpawn[i] > 0 && timers[i] > Constants.waves[nextWave - 1][3 * i + 2] * (long) 1000000) {
+		for (int i = 0; i < timers.length; i++) {//NEED TO ADD CODE HERE FOR NEW ENEMIES BUILT
+			if (toSpawn[i] > 0 && timers[i] > Constants.waves[nextWave - 1][3 * i + 2] * (long) 1_000_000) {
 				// System.out.println(timers[i] + "," + Constants.waves[nextWave
 				// - 1][3 * i + 2] * (long) 1000000);
 				timers[i] %= (long) Constants.waves[nextWave - 1][3 * i + 2] * 1000000;
@@ -196,7 +196,7 @@ public class GameWorld extends World {
 			}
 		}
 
-		money += diff / 1000000000.0;
+		money += diff / 1_000_000_000.0;
 		((Label) ((VBox) hud.getChildren().get(1)).getChildren().get(0)).setText("$" + (int) money);
 	}
 
