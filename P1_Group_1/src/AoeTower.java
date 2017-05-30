@@ -32,7 +32,7 @@ public class AoeTower extends Tower {
 	@Override
 	public void act(long diff) {
 		timer += diff;
-		if (timer/1_000_000 > 1500) {
+		if (timer > 1_500_000_000) {
 			attack(findTarget());
 			timer %= 1_000_000_000;
 		}

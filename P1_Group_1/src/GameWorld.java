@@ -1,4 +1,6 @@
 
+import java.io.File;
+import java.net.MalformedURLException;
 import java.util.Arrays;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -14,6 +16,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.AudioClip;
 
 public class GameWorld extends World {
 
@@ -34,9 +37,11 @@ public class GameWorld extends World {
 	private boolean waiting = false;
 	private Image towerImg;
 	private Image xImg = new Image("file:x.png", 50, 50, false, false);
+	private AudioClip deathSound;
 
-	public GameWorld() {
+	public GameWorld() throws Exception {
 		super();
+		deathSound = new AudioClip(new File("coins.wav").toURI().toURL().toString());
 		buildable = new boolean[GRID_WIDTH][GRID_HEIGHT];
 		for (int col = 0; col < GRID_WIDTH; col++) {
 			for (int row = 0; row < GRID_HEIGHT; row++) {
@@ -104,17 +109,21 @@ public class GameWorld extends World {
 			money -= Constants.towerTypes[currTower].getCost();
 			Tower tower;
 			// THIS NEEDS TO BE CHANGED EACH TIME YOU ADD A NEW TOWER
-			if (currTower == 1) {tower = new AoeTower(0, gridX, gridY);} 
-			else  if (currTower == 2){tower = new TeleTower(0, gridX, gridY);} 
-			else if (currTower==3){tower = new TunakTower(0, gridX, gridY);}
-			else {tower = new BasicTower(0, gridX, gridY);
+			if (currTower == 1) {
+				tower = new AoeTower(1, gridX, gridY);
+			} else if (currTower == 2) {
+				tower = new TeleTower(2, gridX, gridY);
+			} else if (currTower == 3) {
+				tower = new TunakTower(3, gridX, gridY);
+			} else {
+				tower = new BasicTower(0, gridX, gridY);
 			}
 			addTower(tower, gridX, gridY);
 			currTower = -1;
 			getScene().setCursor(Cursor.DEFAULT);
 		});
 		grid = new Tower[GRID_WIDTH][GRID_HEIGHT];
-		money = 100;
+		money = 100000;
 		newWave(nextWave);
 		base = new Base();
 		base.setX(basePos[0]);
@@ -181,7 +190,8 @@ public class GameWorld extends World {
 			timers[i] += diff;
 		}
 
-		for (int i = 0; i < timers.length; i++) {//NEED TO ADD CODE HERE FOR NEW ENEMIES BUILT
+		for (int i = 0; i < timers.length; i++) {// NEED TO ADD CODE HERE FOR
+													// NEW ENEMIES BUILT
 			if (toSpawn[i] > 0 && timers[i] > Constants.waves[nextWave - 1][3 * i + 2] * (long) 1_000_000) {
 				// System.out.println(timers[i] + "," + Constants.waves[nextWave
 				// - 1][3 * i + 2] * (long) 1000000);
@@ -260,6 +270,10 @@ public class GameWorld extends World {
 
 	public void setTowerImg(Image image) {
 		towerImg = image;
+	}
+
+	public AudioClip getDeathSound() {
+		return deathSound;
 	}
 
 	public void addMoney(double money) {

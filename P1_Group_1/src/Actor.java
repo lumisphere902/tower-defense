@@ -1,3 +1,4 @@
+
 // import packages
 import java.util.ArrayList;
 
@@ -26,13 +27,13 @@ public abstract class Actor extends ImageView {
 	public double getWidth() {
 		return this.getImage().getWidth();
 	}
-	
+
 	public double getCenterX() {
-		return super.getX() + getWidth()/2.0;
+		return super.getX() + getWidth() / 2.0;
 	}
-	
+
 	public double getCenterY() {
-		return super.getY() + getHeight()/2.0;
+		return super.getY() + getHeight() / 2.0;
 	}
 
 	public <A extends Actor> ArrayList<A> getIntersectingObjects(Class<A> cls) {
@@ -63,12 +64,12 @@ public abstract class Actor extends ImageView {
 		}
 		return false;
 	}
-	
-	public boolean isInGrid (int x, int y) {
+
+	public boolean isInGrid(int x, int y) {
 		return true;
 	}
-	
-	public double getDistance(Actor a ) {
-		return new Point2D(getX(), getY()).distance(new Point2D(a.getX(),a.getY()));
+
+	public double getDistance(Actor a) {
+		return new Point2D(getX(), getY()).distance(new Point2D(a.getX(), a.getY()));
 	}
 }

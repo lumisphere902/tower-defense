@@ -24,9 +24,7 @@ public abstract class Enemy extends Actor {
 			getWorld().add(bob);
 			// System.out.println("file:death" +
 			// Constants.enemyTypes[id].getImage());
-			String musicFile = "coins.wav";
-			AudioClip plonkSound = new AudioClip(HappyGame.class.getResource(musicFile).toExternalForm());
-			plonkSound.play();
+			getWorld().getDeathSound().play();
 			getWorld().remove(this);
 			System.out.println("I died!");
 		}
@@ -44,8 +42,17 @@ public abstract class Enemy extends Actor {
 		if (isIntersecting(getX(), getY(), getWidth(), getHeight(), base.getX(), base.getY(), base.getHeight(),
 				base.getWidth())) {
 			base.attacked(getDamage());
+			getWorld().remove(this);
 		}
 
+	}
+
+	public void setDistance(int distance) {
+		this.distance = distance;
+	}
+
+	public Path getPath() {
+		return path;
 	}
 
 	public abstract int getDamage();
