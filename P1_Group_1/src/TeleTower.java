@@ -31,7 +31,7 @@ public class TeleTower extends Tower {
 	@Override
 	public void act(long diff) {
 		timer += diff;
-		if (timer/1_000_000 > 1500) {
+		if (timer/1_000_000 > 7500) {
 			attack(findTarget());
 			timer %= 1_000_000_000;
 		}

@@ -12,11 +12,11 @@ public class TeleProjectile extends Projectile {
 	
 	@Override
 	public void act(long diff) {
-		if (Math.random()<0.01){move(1, 0);}
+		move(0, -3);
 		ArrayList<Enemy> enemies = getIntersectingObjects(Enemy.class);
-		while (enemies.size()>0){
+		if (enemies.size()>0){
 			for (Enemy e : enemies){
-				e.attacked(5);
+				e.attacked(1);
 			}
 		}
 	}

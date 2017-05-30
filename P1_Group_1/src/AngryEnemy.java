@@ -5,7 +5,7 @@ public class AngryEnemy extends Enemy{
 	
 	public AngryEnemy(){
 		super(1);
-		super.setImage(new Image("file:kappa.png", 50, 50, false, false));
+		super.setImage(new Image("file:cat2.gif", 50, 50, false, false));
 		health = 50;
 	}
 	@Override
