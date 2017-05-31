@@ -7,9 +7,6 @@ public class Tile extends Actor {
 	}
 
 	@Override
-	public void act(long diff) {
-		// TODO Auto-generated method stub
-
-	}
+	public void act(long diff) {}
 
 }

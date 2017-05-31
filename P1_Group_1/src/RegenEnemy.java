@@ -16,17 +16,17 @@ public class RegenEnemy extends Enemy {
 		timer += diff;
 		if (timer > 500_000_000) {
 			health++;
-			timer %= 500_000_000;
+			timer %= 50_000_000;
 		}
 	}
 	@Override
 	public int getDamage() {
-		return 5;
+		return 3;
 	}
 
 	@Override
 	public int getBounty() {
-		return 20;
+		return 10;
 	}
 
 	@Override

@@ -6,7 +6,7 @@ public class BasicEnemy extends Enemy {
 
 	public BasicEnemy() {
 		super(0);
-		super.setImage(new Image("file:basicEnemy.png", 50, 50, false, false));
+		super.setImage(new Image("file:troll.png", 50, 50, false, false));
 	}
 
 	@Override

@@ -22,8 +22,6 @@ public abstract class Enemy extends Actor {
 			bob.setX(getX());
 			bob.setY(getY());
 			getWorld().add(bob);
-			// System.out.println("file:death" +
-			// Constants.enemyTypes[id].getImage());
 			getWorld().getDeathSound().play();
 			getWorld().remove(this);
 			System.out.println("I died!");

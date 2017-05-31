@@ -2,9 +2,11 @@
 
 
 import javafx.application.Application;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.ImageCursor;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -64,7 +66,9 @@ public class HappyGame extends Application {
 		VBox nums = new VBox();
 		Label moneyLabel = new Label("$0");
 		Label healthLabel = new Label("Health: 20");
-		nums.getChildren().addAll(moneyLabel, healthLabel);
+		Button nextGen = new Button("Next Wave");
+		nextGen.setOnAction(e->world.nextWave());
+		nums.getChildren().addAll(moneyLabel, healthLabel, nextGen);
 		hud.setLeft(towers);
 		hud.setRight(nums);
 		root.setTop(world);

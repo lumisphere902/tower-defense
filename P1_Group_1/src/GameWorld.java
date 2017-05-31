@@ -38,6 +38,7 @@ public class GameWorld extends World {
 	private Image towerImg;
 	private Image xImg = new Image("file:x.png", 50, 50, false, false);
 	private AudioClip deathSound;
+	private boolean waveOn;
 
 	public GameWorld() throws Exception {
 		super();
@@ -70,7 +71,7 @@ public class GameWorld extends World {
 			for (int i = 0; i < GRID_WIDTH; i++) {
 				Image img;
 				if (buildable[i][j]) {
-					img = new Image("file:buildable.png", TILE_WIDTH, TILE_HEIGHT, false, false);
+					img = new Image("file:grass.png", TILE_WIDTH, TILE_HEIGHT, false, false);
 
 				} else {
 					img = new Image("file:rainbowSquare.jpg", TILE_WIDTH, TILE_HEIGHT, false, false);
@@ -109,21 +110,21 @@ public class GameWorld extends World {
 			money -= Constants.towerTypes[currTower].getCost();
 			Tower tower;
 			// THIS NEEDS TO BE CHANGED EACH TIME YOU ADD A NEW TOWER
-			if (currTower == 1) {
-				tower = new AoeTower(1, gridX, gridY);
-			} else if (currTower == 2) {
-				tower = new TeleTower(2, gridX, gridY);
-			} else if (currTower == 3) {
-				tower = new TunakTower(3, gridX, gridY);
-			} else {
-				tower = new BasicTower(0, gridX, gridY);
+			switch(currTower){
+			case 1: tower = new AoeTower(1, gridX, gridY);break;
+			case 2: tower = new TeleTower(2, gridX, gridY);break;
+			case 3: tower = new TunakTower(3, gridX, gridY);break;
+			case 4: tower = new AllTheThingsTower(4, gridX, gridY);break;
+			case 5: tower = new BrainTower(5, gridX, gridY);break;
+			case 6: tower = new SaltBaeTower(6, gridX, gridY);break;
+			default: tower = new BasicTower(0, gridX, gridY);break;
 			}
 			addTower(tower, gridX, gridY);
 			currTower = -1;
 			getScene().setCursor(Cursor.DEFAULT);
 		});
 		grid = new Tower[GRID_WIDTH][GRID_HEIGHT];
-		money = 100000;
+		money = 100;
 		newWave(nextWave);
 		base = new Base();
 		base.setX(basePos[0]);
@@ -137,24 +138,22 @@ public class GameWorld extends World {
 
 	@Override
 	public void act(long diff) {
-		if (ending) {
-			return;
-		}
+		if (ending) {return;}
 		if (gameOver) {
 			try {
 				new Alert(Alert.AlertType.NONE, "YOU HAVE DIED!").show();
 				new Timer().schedule(new TimerTask() {
 					@Override
-					public void run() {
-						System.exit(0);
-					}
+					public void run() {System.exit(0);}
 				}, 3000);
 				stop();
 				ending = true;
 				return;
-			} catch (Exception e) {
-			}
+			} catch (Exception e) {}
 		}
+		
+		if (!waveOn){return;}
+		
 		boolean toNextWave = true;
 		for (int i = 0; i < toSpawn.length; i++) {
 			if (toSpawn[i] != 0) {
@@ -163,9 +162,10 @@ public class GameWorld extends World {
 		}
 
 		if (toNextWave) {
-			System.out.println("WAVE DONE");
+			waveOn = false;
 		}
-		money += diff / 1000000000.0;
+		
+		money += diff / 1_000_000_000.0;
 		((Label) ((VBox) hud.getChildren().get(1)).getChildren().get(0)).setText("$" + (int) money);
 		for (int i = 0; i < Constants.towerTypes.length; i++) {
 			TowerData td = Constants.towerTypes[i];
@@ -177,7 +177,7 @@ public class GameWorld extends World {
 						.setImage(new Image("file:" + td.getImage(), 50, 50, false, false));
 			}
 		}
-
+		
 		if (toNextWave && !waiting) {
 			// System.out.println("WAVE DONE");
 			waiting = true;
@@ -196,13 +196,17 @@ public class GameWorld extends World {
 				// System.out.println(timers[i] + "," + Constants.waves[nextWave
 				// - 1][3 * i + 2] * (long) 1000000);
 				timers[i] %= (long) Constants.waves[nextWave - 1][3 * i + 2] * 1000000;
-				if (i == 0) {
-					spawnEnemy(new BasicEnemy(), (int) (Math.random() * spawnPositions.length));
-					toSpawn[0]--;
-				} else {
-					spawnEnemy(new AngryEnemy(), (int) (Math.random() * spawnPositions.length));
-					toSpawn[1]--;
-				}
+				Enemy e;
+				switch(i){
+				case 0:e = new BasicEnemy();break;
+				case 1:e = new NyanCatEnemy();break;
+				case 2:e = new RegenEnemy();break;
+				case 3:e = new HarambeEnemy();break;
+				case 4:e = new DoggoEnemy();break;
+				default:e = new BasicEnemy();break;
+				}toSpawn[i<5?i:0]--;
+				
+				spawnEnemy(e, (int)(Math.random()*spawnPositions.length));
 			}
 		}
 
@@ -210,6 +214,10 @@ public class GameWorld extends World {
 		((Label) ((VBox) hud.getChildren().get(1)).getChildren().get(0)).setText("$" + (int) money);
 	}
 
+	public void nextWave(){
+		waveOn = true;
+	}
+	
 	public void addTower(Tower a, int x, int y) {
 		if (getTower(x, y) != null) {
 			return;
