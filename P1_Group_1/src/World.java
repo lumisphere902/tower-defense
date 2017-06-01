@@ -24,11 +24,13 @@ public abstract class World extends Pane {
 				act(time - lastTime);
 				for (int i = 0; i < getChildren().size(); i++) {
 					Node a = getChildren().get(i);
-					if (!Actor.class.isInstance(a)) {
-						((Act) a).act(time - lastTime);
-					} else {
-						((Actor) a).act(time - lastTime);
-					}
+					try {
+						if (!Actor.class.isInstance(a)) {
+							((Act) a).act(time - lastTime);
+						} else {
+							((Actor) a).act(time - lastTime);
+						}
+					} catch (ClassCastException e){;}
 
 				}
 				lastTime = time;
