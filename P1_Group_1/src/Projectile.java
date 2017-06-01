@@ -11,6 +11,7 @@ public abstract class Projectile extends Actor {
 		setY(y);
 		this.speed = speed;
 		target = e;
+		setImage(Constants.projTypes[id].getImage());
 	}
 
 	public int getID(){

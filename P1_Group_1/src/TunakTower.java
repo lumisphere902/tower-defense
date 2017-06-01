@@ -3,9 +3,8 @@ import javafx.scene.image.Image;
 public class TunakTower extends Tower {
 	private long timer;
 	
-	public TunakTower(int id, int x, int y) {
-		super(id, x, y);
-		super.setImage(new Image("file:tunak.png", World.TILE_WIDTH, World.TILE_HEIGHT, false, false));
+	public TunakTower(int x, int y) {
+		super(3, x, y);
 		timer = 0;
 	}
 
@@ -13,7 +12,7 @@ public class TunakTower extends Tower {
 	public void attack(Enemy target) {
 		double ran = Math.random()*2*Math.PI/3;
 		for (int i = 0; i<3; i++){
-			TunakProjectile p = new TunakProjectile(0,getX(), getY(), 2*Math.PI*i/3 + ran, target);
+			TunakProjectile p = new TunakProjectile(getX(), getY(), 2*Math.PI*i/3 + ran, target);
 			getWorld().add(p);
 		}
 	}

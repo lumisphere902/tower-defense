@@ -1,6 +1,3 @@
-import javafx.scene.image.Image;
-import javafx.scene.media.AudioClip;
-
 public abstract class Enemy extends Actor {
 	private int id;
 	private int distance;
@@ -10,6 +7,7 @@ public abstract class Enemy extends Actor {
 		super();
 		this.id = id;
 		path = new BasicPath(this);
+		setImage(Constants.enemyTypes[id].getWorldImage());
 	}
 
 	public void attacked(int damage) {
@@ -18,7 +16,7 @@ public abstract class Enemy extends Actor {
 		if (getHealth() <= 0 && getWorld() != null) {
 			getWorld().addMoney(getBounty());
 			Actor bob = new RagDoll();
-			bob.setImage(new Image("file:death" + Constants.enemyTypes[id].getImage(), 50, 50, false, false));
+			bob.setImage(Constants.enemyTypes[id].getDeathImage());
 			bob.setX(getX());
 			bob.setY(getY());
 			getWorld().add(bob);

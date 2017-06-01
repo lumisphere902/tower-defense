@@ -14,37 +14,46 @@ public abstract class World extends Pane {
 
 	private long lastTime = System.nanoTime();
 	private AnimationTimer timer;
-	 
-	
+
 	public World() {
 		timer = new AnimationTimer() {
-			
+
 			@Override
 			public void handle(long now) {
 				long time = System.nanoTime();
 				act(time - lastTime);
 				for (int i = 0; i < getChildren().size(); i++) {
 					Node a = getChildren().get(i);
-					((Actor) a).act(time-lastTime);
-					
+					if (!Actor.class.isInstance(a)) {
+						((Act) a).act(time - lastTime);
+					} else {
+						((Actor) a).act(time - lastTime);
+					}
+
 				}
 				lastTime = time;
 			}
 		};
 	}
-	public abstract void act (long now);
+
+	public abstract void act(long now);
+
 	public void start() {
 		timer.start();
 	}
+
 	public void stop() {
 		timer.stop();
 	}
-	public void add (Actor a) {
+
+	public void add(Actor a) {
 		getChildren().add(a);
 	}
+
 	public void remove(Actor a) {
 		getChildren().remove(a);
 	}
+
 	@SuppressWarnings("unchecked")
 	public <A extends Actor> List<A> getObjects(java.lang.Class<A> cls) {
 		ArrayList<A> list = new ArrayList<A>();

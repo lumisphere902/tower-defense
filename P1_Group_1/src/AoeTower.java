@@ -4,16 +4,14 @@ public class AoeTower extends Tower {
 	private long timer;
 	private static final int range = 500;
 
-	public AoeTower(int id, int x, int y) {
-		super(id, x, y);
-		Image image = new Image("file:aoeTower.png", World.TILE_WIDTH, World.TILE_HEIGHT, false, false);
-		super.setImage(image);
+	public AoeTower(int x, int y) {
+		super(1, x, y);
 		timer = 0;
 	}
 
 	@Override
 	public void attack(Enemy target) {
-		Projectile p = new AoeProjectile(0, getX(), getY(), target);
+		Projectile p = new AoeProjectile(getX(), getY(), target);
 		getWorld().add(p);
 	}
 

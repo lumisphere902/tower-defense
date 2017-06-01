@@ -1,11 +1,8 @@
-import javafx.scene.image.Image;
-
 public class NyanCatEnemy extends Enemy {
 	int health;
 
 	public NyanCatEnemy() {
 		super(1);
-		super.setImage(new Image("file:cat2.gif", 50, 50, false, false));
 		health = 50;
 	}
 
