@@ -12,7 +12,7 @@ public abstract class Enemy extends Actor {
 
 	public void attacked(int damage) {
 		takeDamage(damage);
-		System.out.println("I was hit!" + getHealth());
+//		System.out.println("I was hit!" + getHealth());
 		if (getHealth() <= 0 && getWorld() != null) {
 			getWorld().addMoney(getBounty());
 			Actor bob = new RagDoll();
@@ -21,8 +21,9 @@ public abstract class Enemy extends Actor {
 			bob.setY(getY());
 			getWorld().add(bob);
 			getWorld().getDeathSound().play();
+			getWorld().enemyDied();
 			getWorld().remove(this);
-			System.out.println("I died!");
+//			System.out.println("I died!");
 		}
 	}
 
@@ -38,6 +39,7 @@ public abstract class Enemy extends Actor {
 		if (isIntersecting(getX(), getY(), getWidth(), getHeight(), base.getX(), base.getY(), base.getHeight(),
 				base.getWidth())) {
 			base.attacked(getDamage());
+			getWorld().enemyDied();
 			getWorld().remove(this);
 		}
 

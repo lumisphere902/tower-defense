@@ -1,5 +1,3 @@
-import javafx.scene.image.Image;
-
 public class HarambeEnemy extends Enemy {
 	private int health;
 	

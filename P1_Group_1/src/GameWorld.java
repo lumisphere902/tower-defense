@@ -40,7 +40,9 @@ public class GameWorld extends World {
 	private AudioClip deathSound;
 	private Image grass = new Image("file:grass.png", TILE_WIDTH, TILE_HEIGHT, false, false);
 	private Image rainbow = new Image("file:rainbowSquare.jpg", TILE_WIDTH, TILE_HEIGHT, false, false);
-	//private boolean waveOn;
+	private boolean victory = false;
+	private int enemyCount = 0;
+	// private boolean waveOn;
 
 	public GameWorld() throws Exception {
 		super();
@@ -65,12 +67,12 @@ public class GameWorld extends World {
 				}
 			}
 		}
-		
+
 		/*
-		  for (boolean[] r : buildable) { for (boolean b : r) {
-		  System.out.print(b + (b ? "  " : " ")); } System.out.println(); }
-		*/
-		
+		 * for (boolean[] r : buildable) { for (boolean b : r) {
+		 * System.out.print(b + (b ? "  " : " ")); } System.out.println(); }
+		 */
+
 		for (int j = 0; j < GRID_HEIGHT; j++) {
 			for (int i = 0; i < GRID_WIDTH; i++) {
 				Image img;
@@ -114,21 +116,35 @@ public class GameWorld extends World {
 			money -= Constants.towerTypes[currTower].getCost();
 			Tower tower;
 			// THIS NEEDS TO BE CHANGED EACH TIME YOU ADD A NEW TOWER
-			switch(currTower){
-			case 1: tower = new AoeTower(gridX, gridY);break;
-			case 2: tower = new TeleTower(gridX, gridY);break;
-			case 3: tower = new TunakTower(gridX, gridY);break;
-			case 4: tower = new AllTheThingsTower(gridX, gridY);break;
-			case 5: tower = new BrainTower(gridX, gridY);break;
-			case 6: tower = new SaltBaeTower(gridX, gridY);break;
-			default: tower = new BasicTower(gridX, gridY);break;
+			switch (currTower) {
+			case 1:
+				tower = new AoeTower(gridX, gridY);
+				break;
+			case 2:
+				tower = new TeleTower(gridX, gridY);
+				break;
+			case 3:
+				tower = new TunakTower(gridX, gridY);
+				break;
+			case 4:
+				tower = new AllTheThingsTower(gridX, gridY);
+				break;
+			case 5:
+				tower = new BrainTower(gridX, gridY);
+				break;
+			case 6:
+				tower = new SaltBaeTower(gridX, gridY);
+				break;
+			default:
+				tower = new BasicTower(gridX, gridY);
+				break;
 			}
 			addTower(tower, gridX, gridY);
 			currTower = -1;
 			getScene().setCursor(Cursor.DEFAULT);
 		});
 		grid = new Tower[GRID_WIDTH][GRID_HEIGHT];
-		money = 1000;
+		money = 50;
 		newWave(nextWave);
 		base = new Base();
 		base.setX(basePos[0]);
@@ -142,21 +158,41 @@ public class GameWorld extends World {
 
 	@Override
 	public void act(long diff) {
-		if (ending) {return;}
+		if (ending) {
+			return;
+		}
 		if (gameOver) {
 			try {
 				new Alert(Alert.AlertType.NONE, "YOU HAVE DIED!").show();
 				new Timer().schedule(new TimerTask() {
 					@Override
-					public void run() {System.exit(0);}
+					public void run() {
+						System.exit(0);
+					}
 				}, 3000);
 				stop();
 				ending = true;
 				return;
-			} catch (Exception e) {}
+			} catch (Exception e) {
+			}
 		}
-		
-		
+
+		else if (victory) {
+			try {
+				new Alert(Alert.AlertType.NONE, "YOU HAVE WON!").show();
+				new Timer().schedule(new TimerTask() {
+					@Override
+					public void run() {
+						System.exit(0);
+					}
+				}, 3000);
+				stop();
+				ending = true;
+				return;
+			} catch (Exception e) {
+			}
+		}
+
 		boolean toNextWave = true;
 		for (int i = 0; i < toSpawn.length; i++) {
 			if (toSpawn[i] != 0) {
@@ -164,10 +200,10 @@ public class GameWorld extends World {
 			}
 		}
 
-		if (toNextWave) {
-			System.out.println("WAVE DONE");
-		}
-		
+		// if (toNextWave) {
+		// System.out.println("WAVE DONE");
+		// }
+
 		money += diff / 1_000_000_000.0;
 		((Label) ((VBox) hud.getChildren().get(1)).getChildren().get(0)).setText("$" + (int) money);
 		for (int i = 0; i < Constants.towerTypes.length; i++) {
@@ -180,10 +216,12 @@ public class GameWorld extends World {
 						.setImage(td.getImage());
 			}
 		}
-		
+
 		if (toNextWave && !waiting) {
 			// System.out.println("WAVE DONE");
-			waiting = true;
+			if (enemyCount <= 1) {
+				waiting = true;
+			}
 
 			newWave(nextWave);
 			return;
@@ -200,27 +238,46 @@ public class GameWorld extends World {
 				// - 1][3 * i + 2] * (long) 1000000);
 				timers[i] %= (long) Constants.waves[nextWave - 1][3 * i + 2] * 1000000;
 				Enemy e;
-				switch(i){
-				case 0:e = new BasicEnemy();break;
-				case 1:e = new NyanCatEnemy();break;
-				case 2:e = new RegenEnemy();break;
-				case 3:e = new HarambeEnemy();break;
-				case 4:e = new DoggoEnemy();break;
-				default:e = new BasicEnemy();break;
-				}toSpawn[i<5?i:0]--;
-				
-				spawnEnemy(e, (int)(Math.random()*spawnPositions.length));
+				switch (i) {
+				case 0:
+					e = new BasicEnemy();
+					break;
+				case 1:
+					e = new NyanCatEnemy();
+					break;
+				case 2:
+					e = new RegenEnemy();
+					break;
+				case 3:
+					e = new HarambeEnemy();
+					break;
+				case 4:
+					e = new DoggoEnemy();
+					break;
+				default:
+					e = new BasicEnemy();
+					break;
+				}
+				toSpawn[i < 5 ? i : 0]--;
+				enemyCount++;
+
+				spawnEnemy(e, (int) (Math.random() * spawnPositions.length));
 			}
 		}
 
-		money += diff / 1_000_000_000.0;
+		money += diff / 2_000_000_000.0;
 		((Label) ((VBox) hud.getChildren().get(1)).getChildren().get(0)).setText("$" + (int) money);
+//		System.out.println(enemyCount);
 	}
 
-	public void nextWave(){
-		//waveOn = true;
+	public void nextWave() {
+		// waveOn = true;
 	}
-	
+
+	public void enemyDied() {
+		enemyCount--;
+	}
+
 	public void addTower(Tower a, int x, int y) {
 		if (getTower(x, y) != null) {
 			return;
@@ -246,8 +303,12 @@ public class GameWorld extends World {
 	}
 
 	public void newWave(int waveNum) {
+		if (enemyCount > 1) {
+			return;
+		}
 		waiting = false;
-		if (waveNum > 1) {
+		if (waveNum > 14) {
+			victory();
 			return;
 		}
 		for (int i = 0; i * 3 < Constants.waves[0].length; i++) {
@@ -256,12 +317,12 @@ public class GameWorld extends World {
 			toSpawn[i] = (int) (Math.random() * (max - min + 1)) + min;
 		}
 		nextWave++;
-		System.out.println(Arrays.toString(toSpawn));
+//		System.out.println(Arrays.toString(toSpawn));
 		addNotification("Wave " + (waveNum + 1));
 	}
-	
+
 	public void addNotification(String text) {
-		System.out.println("ADD NOTIFICATION");
+//		System.out.println("ADD NOTIFICATION");
 		TextNotification tn = new TextNotification(text);
 		tn.layoutXProperty().bind(widthProperty().subtract(tn.widthProperty()).divide(2));
 		tn.layoutYProperty().bind(heightProperty().subtract(tn.heightProperty()).divide(2));
@@ -279,6 +340,10 @@ public class GameWorld extends World {
 
 	public void gameOver() {
 		gameOver = true;
+	}
+
+	private void victory() {
+		victory = true;
 	}
 
 	public void setCurrTower(int i) {
