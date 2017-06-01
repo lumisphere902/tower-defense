@@ -15,11 +15,11 @@ public abstract class Enemy extends Actor {
 //		System.out.println("I was hit!" + getHealth());
 		if (getHealth() <= 0 && getWorld() != null) {
 			getWorld().addMoney(getBounty());
-			Actor bob = new RagDoll();
-			bob.setImage(Constants.enemyTypes[id].getDeathImage());
-			bob.setX(getX());
-			bob.setY(getY());
-			getWorld().add(bob);
+//			Actor bob = new RagDoll();
+//			bob.setImage(Constants.enemyTypes[id].getDeathImage());
+//			bob.setX(getX());
+//			bob.setY(getY());
+//			getWorld().add(bob);
 			getWorld().getDeathSound().play();
 			getWorld().enemyDied();
 			getWorld().remove(this);

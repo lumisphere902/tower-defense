@@ -87,19 +87,19 @@ class TowerData {
 }
 
 class EnemyData {
-	private Image deathImage;
+//	private Image deathImage;
 	private Image worldImage;
 	private int type;
 
 	public EnemyData(int type, String image) {
-		this.deathImage = new Image("file:death" + image, 50, 50, false, false);
+//		this.deathImage = new Image("file:death" + image, 50, 50, false, false);
 		this.worldImage = new Image("file:" + image, 50, 50, false, false);
 		this.type = type;
 	}
 
-	public Image getDeathImage() {
-		return deathImage;
-	}
+//	public Image getDeathImage() {
+//		return deathImage;
+//	}
 
 	public Image getWorldImage() {
 		return worldImage;
