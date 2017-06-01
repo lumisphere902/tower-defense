@@ -38,35 +38,37 @@ public class GameWorld extends World {
 	private Image towerImg;
 	private Image xImg = new Image("file:x.png", 50, 50, false, false);
 	private AudioClip deathSound;
-	private boolean waveOn;
+	//private boolean waveOn;
 
 	public GameWorld() throws Exception {
 		super();
 		deathSound = new AudioClip(new File("coins.wav").toURI().toURL().toString());
 		buildable = new boolean[GRID_WIDTH][GRID_HEIGHT];
-		for (int col = 0; col < GRID_WIDTH; col++) {
-			for (int row = 0; row < GRID_HEIGHT; row++) {
-				if (row == 4 || row == 5 || row == 8 || row == 9 || row == 12 || row == 13) {
-					buildable[col][row] = false;
+		for (int x = 0; x < GRID_WIDTH; x++) {
+			for (int y = 0; y < GRID_HEIGHT; y++) {
+				if (y == 4 || y == 5 || y == 8 || y == 9 || y == 12 || y == 13) {
+					buildable[x][y] = false;
 				} // horizontal paths
-				else if ((col == 0 || col == 1) && (row < 6 || (row >= 8 && row < 14))) {
-					buildable[col][row] = false;
+				else if ((x == 0 || x == 1) && (y < 6 || (y >= 8 && y < 14))) {
+					buildable[x][y] = false;
 				} // vertical left side
-				else if ((col == 18 || col == 19) && (row >= 4 && row < 10)) {
-					buildable[col][row] = false;
+				else if ((x == 18 || x == 19) && (y >= 4 && y < 10)) {
+					buildable[x][y] = false;
 				} // vertical right side
-				else if (row >= 12 && col >= 14) {
-					buildable[col][row] = false;
+				else if (y >= 12 && x >= 14) {
+					buildable[x][y] = false;
 				} // tower
 				else {
-					buildable[col][row] = true;
+					buildable[x][y] = true;
 				}
 			}
 		}
+		
 		/*
-		 * for (boolean[] r : buildableTerrain) { for (boolean b : r) {
-		 * System.out.print(b + (b ? "  " : " ")); } System.out.println(); }
-		 */
+		  for (boolean[] r : buildable) { for (boolean b : r) {
+		  System.out.print(b + (b ? "  " : " ")); } System.out.println(); }
+		*/
+		
 		for (int j = 0; j < GRID_HEIGHT; j++) {
 			for (int i = 0; i < GRID_WIDTH; i++) {
 				Image img;
@@ -214,7 +216,7 @@ public class GameWorld extends World {
 	}
 
 	public void nextWave(){
-		waveOn = true;
+		//waveOn = true;
 	}
 	
 	public void addTower(Tower a, int x, int y) {

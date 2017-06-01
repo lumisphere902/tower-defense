@@ -38,6 +38,7 @@ public abstract class Actor extends ImageView {
 
 	public <A extends Actor> ArrayList<A> getIntersectingObjects(Class<A> cls) {
 		ArrayList<A> ans = new ArrayList<A>();
+		GameWorld w = getWorld(); if(w==null){return ans;}
 		for (Actor a : getWorld().getObjects(cls)) {
 			if (isIntersecting(getX(), getY(), getWidth(), getHeight(), a.getX(), a.getY(), a.getHeight(),
 					a.getWidth())) {
