@@ -5,6 +5,9 @@ import javafx.scene.image.ImageView;
 
 public class BrainTower extends Tower{
 	private long timer;
+	boolean coverOn = false;
+	ImageView cover;
+	GameWorld w;
 	
 	public BrainTower(int x, int y){
 		super(5, x, y);
@@ -12,10 +15,11 @@ public class BrainTower extends Tower{
 	}
 	@Override
 	public void attack(Enemy target) {
-		GameWorld w = getWorld();
+		w = getWorld();
 		if (w==null){return;}
-		ImageView cover = new ImageView(new Image("file:brainExpanded.png", 450, 450, false, false));
+		cover = new ImageView(new Image("file:brainExpanded.png", 500, 450, false, false));
 		w.getChildren().add(cover);
+		coverOn=true;
 		List<Enemy> allEnemies = w.getObjects(Enemy.class);
 		for (int i=allEnemies.size()-1; i>=0; i--){
 			w.getChildren().remove(allEnemies.get(i));
@@ -24,18 +28,25 @@ public class BrainTower extends Tower{
 
 	@Override
 	public double getRange() {
-		// TODO Auto-generated method stub
-		return 0;
+		return 100;
 	}
 
 	@Override
 	public void act(long diff) {
+		if (coverOn){
+			try{Thread.sleep(1000);}catch(InterruptedException e){;}
+			w.getChildren().remove(cover);
+			coverOn=false;
+		}
+		
 		timer += diff;
-		long c = 10*1_000_000_000;
+		long c = 1_000_000_000;
+		c*=30;//how many seconds
 		if (timer > c) {
 			attack(findTarget());
 			timer %= 1_000_000_000;
 		}
+		
 	}
 
 }

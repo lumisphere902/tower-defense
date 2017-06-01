@@ -144,7 +144,7 @@ public class GameWorld extends World {
 			getScene().setCursor(Cursor.DEFAULT);
 		});
 		grid = new Tower[GRID_WIDTH][GRID_HEIGHT];
-		money = 50;
+		money = 1000;
 		newWave(nextWave);
 		base = new Base();
 		base.setX(basePos[0]);
