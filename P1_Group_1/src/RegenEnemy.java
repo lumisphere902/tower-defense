@@ -6,7 +6,6 @@ public class RegenEnemy extends Enemy {
 	
 	public RegenEnemy() {
 		super(2);
-		setImage(new Image("file:arthur.png", 50, 50, false, false));
 		timer = 0;
 	}
 

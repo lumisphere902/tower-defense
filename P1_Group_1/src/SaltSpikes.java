@@ -6,11 +6,10 @@ public class SaltSpikes extends Projectile {
 	private double direction;
 	private int spikesLeft;
 	
-	public SaltSpikes(int id, double x, double y, Enemy target, double d){
-		super(id, x, y, 200, target);
+	public SaltSpikes(double x, double y, Enemy target, double d){
+		super(6, x, y, 200, target);
 		this.direction = d;
 		spikesLeft = 20;
-		setImage(new Image("file:salt.png", 25, 25, false, false));
 	}
 	
 	@Override

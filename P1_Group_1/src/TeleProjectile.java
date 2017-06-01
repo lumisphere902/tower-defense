@@ -1,14 +1,10 @@
 import java.util.ArrayList;
 
-import javafx.scene.image.Image;
-
 public class TeleProjectile extends Projectile {
 	private double direction;
 	
-	public TeleProjectile(int id, double x, double y, Enemy target) {
-		super(id, x, y, 200, target);
-		Image image = new Image("file:sunProjectile.png", 20, 20, false, false);
-		setImage(image);
+	public TeleProjectile(double x, double y, Enemy target) {
+		super(2, x, y, 200, target);
 		direction = 2*Math.random()*Math.PI;
 	}
 	

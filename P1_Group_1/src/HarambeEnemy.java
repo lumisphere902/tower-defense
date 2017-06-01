@@ -5,7 +5,6 @@ public class HarambeEnemy extends Enemy {
 	
 	public HarambeEnemy(){
 		super(3);
-		setImage(new Image("file:harambe.png", 50, 50, false, false));
 		health = 50;
 	}
 	@Override
@@ -26,7 +25,7 @@ public class HarambeEnemy extends Enemy {
 	@Override
 	public int getHealth() {
 		// TODO Auto-generated method stub
-		return 0;
+		return health;
 	}
 	
 }

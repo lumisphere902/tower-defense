@@ -5,7 +5,6 @@ public class DoggoEnemy extends Enemy {
 	
 	public DoggoEnemy(){
 		super(4);
-		setImage(new Image("file:doggo.png", 50, 50, false, false));
 		health = 80;
 	}
 	@Override

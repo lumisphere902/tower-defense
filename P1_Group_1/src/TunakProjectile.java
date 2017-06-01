@@ -5,9 +5,8 @@ import javafx.scene.image.Image;
 public class TunakProjectile extends Projectile{
 	private double direction;
 	
-	public TunakProjectile(int id, double x, double y, double d, Enemy target){
-		super(id, x, y, 300, target);
-		setImage(new Image("file:samosa.png", 20, 20, false, false));
+	public TunakProjectile(double x, double y, double d, Enemy target){
+		super(3, x, y, 300, target);
 		direction = d;
 	}
 	

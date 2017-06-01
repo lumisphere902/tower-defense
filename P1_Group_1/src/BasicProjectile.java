@@ -4,10 +4,8 @@ public class BasicProjectile extends Projectile {
 	
 	private int damage = 5;
 
-	public BasicProjectile(int id, double x, double y, Enemy target) {
-		super(id, x, y, 200, target);
-		Image image = new Image("file:basicProjectile.png", 20, 20, false, false);
-		setImage(image);
+	public BasicProjectile(double x, double y, Enemy target) {
+		super(0, x, y, 200, target);
 	}
 
 	@Override

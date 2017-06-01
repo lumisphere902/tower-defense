@@ -7,6 +7,7 @@ public abstract class Tower extends Actor {
 		this.id = id;
 		setX(x*World.TILE_WIDTH);
 		setY(y*World.TILE_HEIGHT);
+		setImage(Constants.towerTypes[Id()].getWorldImage());
 	}
 	public abstract void attack(Enemy target);
 	//public abstract void upgrade();

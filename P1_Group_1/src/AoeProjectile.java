@@ -4,10 +4,8 @@ public class AoeProjectile extends Projectile {
 
 	private int damage = 4;
 
-	public AoeProjectile(int id, double x, double y, Enemy target) {
-		super(id, x, y, 200, target);
-		Image image = new Image("file:aoeProjectile.png", 20, 20, false, false);
-		setImage(image);
+	public AoeProjectile(double x, double y, Enemy target) {
+		super(1, x, y, 200, target);
 	}
 
 	@Override

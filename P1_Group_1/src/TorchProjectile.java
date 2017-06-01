@@ -1,12 +1,9 @@
-import javafx.scene.image.Image;
-
 public class TorchProjectile extends Projectile{
 	
 	private int damage = 10;
 	
-	public TorchProjectile(int id, double x, double y, Enemy target){
-		super(id, x, y, 200, target);
-		setImage(new Image("file:torch.png", 25, 25, false, false));
+	public TorchProjectile(double x, double y, Enemy target){
+		super(4, x, y, 200, target);
 	}
 	@Override
 	public void act(long diff) {

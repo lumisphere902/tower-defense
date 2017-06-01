@@ -41,7 +41,7 @@ public class HappyGame extends Application {
 			VBox tower = new VBox();
 			// System.out.println(td.getImage().getWidth());
 			ImageView img = new ImageView();
-			img.setImage(new Image("file:" + td.getImage(), 50, 50, false, false));
+			img.setImage(td.getImage());
 			img.setX(0);
 			img.setY(0);
 			Label label = new Label("" + td.getCost());
@@ -54,11 +54,10 @@ public class HappyGame extends Application {
 					if (world.getMoney() < Constants.towerTypes[num].getCost()) {
 						return;
 					}
-					ImageView imgView = ((ImageView) tower.getChildren().get(0));
+//					ImageView imgView = ((ImageView) tower.getChildren().get(0));
 					world.setCurrTower(num);
-					world.setTowerImg(new Image("file:" + Constants.towerTypes[num].getImage(), 50,
-							50, false, false));
-					scene.setCursor(new ImageCursor(new Image("file:" + Constants.towerTypes[num].getImage()),25,25));
+					world.setTowerImg(Constants.towerTypes[num].getImage());
+					scene.setCursor(new ImageCursor(Constants.towerTypes[num].getThumbnail()));
 				}
 			});
 			towers.getChildren().add(tower);
