@@ -124,7 +124,7 @@ public class GameWorld extends World {
 			getScene().setCursor(Cursor.DEFAULT);
 		});
 		grid = new Tower[GRID_WIDTH][GRID_HEIGHT];
-		money = 100;
+		money = 1000;
 		newWave(nextWave);
 		base = new Base();
 		base.setX(basePos[0]);
@@ -152,7 +152,6 @@ public class GameWorld extends World {
 			} catch (Exception e) {}
 		}
 		
-		if (!waveOn){return;}
 		
 		boolean toNextWave = true;
 		for (int i = 0; i < toSpawn.length; i++) {
@@ -162,7 +161,7 @@ public class GameWorld extends World {
 		}
 
 		if (toNextWave) {
-			waveOn = false;
+			System.out.println("WAVE DONE");
 		}
 		
 		money += diff / 1_000_000_000.0;

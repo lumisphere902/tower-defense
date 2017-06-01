@@ -11,7 +11,7 @@ public class AllTheThingsTower extends Tower {
 	
 	@Override
 	public void attack(Enemy target) {
-		Projectile p = new BasicProjectile(0, getX(), getY(), target);
+		Projectile p = new TorchProjectile(0, getX(), getY(), target);
 		getWorld().add(p);
 	}
 
