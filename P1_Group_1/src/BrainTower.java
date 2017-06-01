@@ -1,4 +1,7 @@
+import java.util.List;
+
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 public class BrainTower extends Tower{
 	private long timer;
@@ -10,7 +13,14 @@ public class BrainTower extends Tower{
 	}
 	@Override
 	public void attack(Enemy target) {
-		
+		GameWorld w = getWorld();
+		if (w==null){return;}
+		ImageView cover = new ImageView(new Image("file:brainExpanded.png", 450, 450, false, false));
+		w.getChildren().add(cover);
+		List<Enemy> allEnemies = w.getObjects(Enemy.class);
+		for (int i=allEnemies.size()-1; i>=0; i--){
+			w.getChildren().remove(allEnemies.get(i));
+		}
 	}
 
 	@Override
@@ -21,8 +31,12 @@ public class BrainTower extends Tower{
 
 	@Override
 	public void act(long diff) {
-		// TODO Auto-generated method stub
-		
+		timer += diff;
+		long c = 10*1_000_000_000;
+		if (timer > c) {
+			attack(findTarget());
+			timer %= 1_000_000_000;
+		}
 	}
 
 }
