@@ -1,6 +1,7 @@
 
 public abstract class Tower extends Actor {
 	private int id;
+	
 	public Tower(int id, int x, int y) {
 		super();
 		this.id = id;
@@ -8,14 +9,14 @@ public abstract class Tower extends Actor {
 		setY(y*World.TILE_HEIGHT);
 	}
 	public abstract void attack(Enemy target);
-	public abstract void upgrade();
+	//public abstract void upgrade();
+	//public abstract void sell();
 	public abstract double getRange();
-	public void sell() {
-		
-	}
+	
 	public int Id() {
 		return id;
 	}
+	
 	Enemy findTarget() {
 		double maxDist = 0;
 		Enemy max = null;
@@ -27,4 +28,5 @@ public abstract class Tower extends Actor {
 		}
 		return max;
 	}
+	
 }

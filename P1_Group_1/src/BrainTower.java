@@ -14,12 +14,6 @@ public class BrainTower extends Tower{
 	}
 
 	@Override
-	public void upgrade() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public double getRange() {
 		// TODO Auto-generated method stub
 		return 0;

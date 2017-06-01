@@ -18,14 +18,7 @@ public class AoeTower extends Tower {
 	}
 
 	@Override
-	public void upgrade() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public double getRange() {
-		// TODO Auto-generated method stub
 		return range ;
 	}
 

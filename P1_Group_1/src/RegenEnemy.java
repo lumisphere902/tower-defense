@@ -12,7 +12,6 @@ public class RegenEnemy extends Enemy {
 
 	public void act(long diff){
 		super.act(diff);
-		System.out.println(health);
 		timer += diff;
 		if (timer > 500_000_000) {
 			health++;

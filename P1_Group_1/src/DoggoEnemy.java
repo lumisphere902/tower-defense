@@ -6,7 +6,7 @@ public class DoggoEnemy extends Enemy {
 	public DoggoEnemy(){
 		super(4);
 		setImage(new Image("file:doggo.png", 50, 50, false, false));
-		health = 40;
+		health = 80;
 	}
 	@Override
 	public int getDamage() {
@@ -20,7 +20,8 @@ public class DoggoEnemy extends Enemy {
 
 	@Override
 	public void takeDamage(int damage) {
-		health-=damage/2;
+		health-=damage;
+		if (Math.random()<0.1){health++;}
 	}
 
 	@Override

@@ -11,15 +11,13 @@ public class TunakTower extends Tower {
 
 	@Override
 	public void attack(Enemy target) {
-		Projectile p = new AoeProjectile(0, getX(), getY(), target);
-		getWorld().add(p);
+		double ran = Math.random()*2*Math.PI/3;
+		for (int i = 0; i<3; i++){
+			TunakProjectile p = new TunakProjectile(0,getX(), getY(), 2*Math.PI*i/3 + ran, target);
+			getWorld().add(p);
+		}
 	}
-
-	@Override
-	public void upgrade() {
-		;
-	}
-
+	
 	@Override
 	public double getRange() {
 		return 40;
@@ -28,7 +26,7 @@ public class TunakTower extends Tower {
 	@Override
 	public void act(long diff) {
 		timer += diff;
-		if (timer/1_000_000 > 1500) {
+		if (timer/1_000_000 > 9000) {
 			attack(findTarget());
 			timer %= 1_000_000_000;
 		}

@@ -66,9 +66,9 @@ public class HappyGame extends Application {
 		VBox nums = new VBox();
 		Label moneyLabel = new Label("$0");
 		Label healthLabel = new Label("Health: 20");
-		Button nextGen = new Button("Next Wave");
-		nextGen.setOnAction(e->world.nextWave());
-		nums.getChildren().addAll(moneyLabel, healthLabel, nextGen);
+		//Button nextGen = new Button("Next Wave");
+		//nextGen.setOnAction(e->world.nextWave());
+		nums.getChildren().addAll(moneyLabel, healthLabel);
 		hud.setLeft(towers);
 		hud.setRight(nums);
 		root.setTop(world);

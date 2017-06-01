@@ -11,12 +11,8 @@ public class AllTheThingsTower extends Tower {
 	
 	@Override
 	public void attack(Enemy target) {
-		
-	}
-
-	@Override
-	public void upgrade() {
-		
+		Projectile p = new BasicProjectile(0, getX(), getY(), target);
+		getWorld().add(p);
 	}
 
 	@Override
@@ -26,7 +22,10 @@ public class AllTheThingsTower extends Tower {
 
 	@Override
 	public void act(long diff) {
-		
+		timer += diff;
+		if (timer > 300_000_000) {
+			attack(findTarget());
+			timer %= 300_000_000;
+		}
 	}
-
 }

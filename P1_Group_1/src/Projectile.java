@@ -1,24 +1,27 @@
 
 public abstract class Projectile extends Actor {
 	private int id;
-	private Enemy target;
 	private int speed;
+	private Enemy target;
 	
-	public Projectile(int id, double x, double y, int speed, Enemy target) {
+	public Projectile(int id, double x, double y, int speed, Enemy e) {
 		super();
 		this.id = id;
 		setX(x);
 		setY(y);
-		this.target = target;
 		this.speed = speed;
+		target = e;
 	}
 
-	public Enemy getTarget() {
-		return target;
+	public int getID(){
+		return id;
 	}
 
 	public int getSpeed() {
 		return speed;
+	}
+	public Enemy getTarget() {
+		return target;
 	}
 
 }

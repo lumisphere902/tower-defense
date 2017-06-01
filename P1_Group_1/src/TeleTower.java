@@ -13,12 +13,8 @@ public class TeleTower extends Tower {
 
 	@Override
 	public void attack(Enemy target) {
-		
-	}
-
-	@Override
-	public void upgrade() {
-		
+		TeleProjectile p = new TeleProjectile(0, getX(), getY(), target);
+		getWorld().add(p);
 	}
 
 	@Override

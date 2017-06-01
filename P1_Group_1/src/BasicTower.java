@@ -18,14 +18,7 @@ public class BasicTower extends Tower {
 	}
 
 	@Override
-	public void upgrade() {
-//		System.out.println("Upgrade!");
-	}
-
-	@Override
 	public void act(long diff) {
-//		System.out.println("Act!");
-//		System.out.println(getWorld());
 		timer += diff;
 		if (timer > 1_000_000_000) {
 			attack(findTarget());
