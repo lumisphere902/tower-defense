@@ -6,9 +6,8 @@ import javafx.scene.image.ImageView;
 public class BrainTower extends Tower{
 	private long timer;
 	
-	public BrainTower(int id, int x, int y){
-		super(id, x, y);
-		super.setImage(new Image("file:brain.png", World.TILE_WIDTH, World.TILE_HEIGHT, false, false));
+	public BrainTower(int x, int y){
+		super(5, x, y);
 		timer = 0;
 	}
 	@Override

@@ -1,6 +1,5 @@
 
 import java.io.File;
-import java.net.MalformedURLException;
 import java.util.Arrays;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -17,6 +16,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.AudioClip;
+import javafx.scene.text.Font;
 
 public class GameWorld extends World {
 
@@ -38,6 +38,8 @@ public class GameWorld extends World {
 	private Image towerImg;
 	private Image xImg = new Image("file:x.png", 50, 50, false, false);
 	private AudioClip deathSound;
+	private Image grass = new Image("file:grass.png", TILE_WIDTH, TILE_HEIGHT, false, false);
+	private Image rainbow = new Image("file:rainbowSquare.jpg", TILE_WIDTH, TILE_HEIGHT, false, false);
 	//private boolean waveOn;
 
 	public GameWorld() throws Exception {
@@ -73,10 +75,10 @@ public class GameWorld extends World {
 			for (int i = 0; i < GRID_WIDTH; i++) {
 				Image img;
 				if (buildable[i][j]) {
-					img = new Image("file:grass.png", TILE_WIDTH, TILE_HEIGHT, false, false);
+					img = grass;
 
 				} else {
-					img = new Image("file:rainbowSquare.jpg", TILE_WIDTH, TILE_HEIGHT, false, false);
+					img = rainbow;
 				}
 				Tile imgView = new Tile(img);
 				imgView.setX(i * TILE_WIDTH);
@@ -113,13 +115,13 @@ public class GameWorld extends World {
 			Tower tower;
 			// THIS NEEDS TO BE CHANGED EACH TIME YOU ADD A NEW TOWER
 			switch(currTower){
-			case 1: tower = new AoeTower(1, gridX, gridY);break;
-			case 2: tower = new TeleTower(2, gridX, gridY);break;
-			case 3: tower = new TunakTower(3, gridX, gridY);break;
-			case 4: tower = new AllTheThingsTower(4, gridX, gridY);break;
-			case 5: tower = new BrainTower(5, gridX, gridY);break;
-			case 6: tower = new SaltBaeTower(6, gridX, gridY);break;
-			default: tower = new BasicTower(0, gridX, gridY);break;
+			case 1: tower = new AoeTower(gridX, gridY);break;
+			case 2: tower = new TeleTower(gridX, gridY);break;
+			case 3: tower = new TunakTower(gridX, gridY);break;
+			case 4: tower = new AllTheThingsTower(gridX, gridY);break;
+			case 5: tower = new BrainTower(gridX, gridY);break;
+			case 6: tower = new SaltBaeTower(gridX, gridY);break;
+			default: tower = new BasicTower(gridX, gridY);break;
 			}
 			addTower(tower, gridX, gridY);
 			currTower = -1;
@@ -172,10 +174,10 @@ public class GameWorld extends World {
 			TowerData td = Constants.towerTypes[i];
 			if (money < td.getCost()) {
 				((ImageView) ((VBox) ((FlowPane) (hud.getChildren().get(0))).getChildren().get(i)).getChildren().get(0))
-						.setImage(new Image("file:BW" + td.getImage(), 50, 50, false, false));
+						.setImage(td.getBwimage());
 			} else {
 				((ImageView) ((VBox) ((FlowPane) (hud.getChildren().get(0))).getChildren().get(i)).getChildren().get(0))
-						.setImage(new Image("file:" + td.getImage(), 50, 50, false, false));
+						.setImage(td.getImage());
 			}
 		}
 		
@@ -255,6 +257,16 @@ public class GameWorld extends World {
 		}
 		nextWave++;
 		System.out.println(Arrays.toString(toSpawn));
+		addNotification("Wave " + (waveNum + 1));
+	}
+	
+	public void addNotification(String text) {
+		System.out.println("ADD NOTIFICATION");
+		TextNotification tn = new TextNotification(text);
+		tn.layoutXProperty().bind(widthProperty().subtract(tn.widthProperty()).divide(2));
+		tn.layoutYProperty().bind(heightProperty().subtract(tn.heightProperty()).divide(2));
+		tn.setFont(new Font("Arial", 100));
+		getChildren().add(tn);
 	}
 
 	public void setHud(BorderPane hud2) {
